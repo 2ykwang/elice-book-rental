@@ -1,3 +1,33 @@
-# 3기_도서관대출서비스_이름
+# 3기*도서관대출서비스*이름
 
-도서관대출서비스 프로젝트 템플릿입니다.
+## 사용 스택
+
+|       범주       |            기술             |
+| :--------------: | :-------------------------: |
+|       배포       |           Heroku            |
+|       개발       |  Python, Flask, SQLAlchemy  |
+| 의존성 관리 도구 |           Pipenv            |
+|  데이터 베이스   |    MySQL, SQLite (Test)     |
+|    프론트엔드    |     JavaScript, jQuery      |
+|      백엔드      | Flask, Gunicorn, SQLAlchemy |
+
+## 설치
+
+```zsh
+$
+```
+
+## 환경변수
+
+```ini
+# Secret Key
+SECRET_KEY='시크릿 키'
+
+# ( 개발 DB  (data-dev.sqlite) | 테스트 DB (data-test.sqlite) | 배포 DB (data.sqlite) )
+DEV_DATABASE_URL='DB 경로'
+TEST_DATABASE_URL='DB 경로'
+DATABASE_URL='DB 경로'
+
+# 설정 ( development | testing | production )
+FLASK_CONFIG='development'
+```
