@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block title %}도서 목록{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3"> 
+
+        <div class="col">
+          <div class="card shadow-sm h-100 ">
+            <img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename='images/1.png') }}" focusable="false"> </img>
+
+            <div class="card-body">
+              <h5 class="card-title book-title">주니어를 위한 최선의 코딩 학습 똑똑한 파이썬</h5>
+
+                <div class="row align-items-center">
+                  <div class="col col-6"> 
+                    <h6 class="card-subtitle mb-2 text-muted">황재호/황예린</h6>
+                  </div> 
+                  <div class="col me-auto text-end">                  
+                    <div class="card-subtitle mb-2 small-ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> </div> 
+                  </div>
+               </div>
+ 
+                <div class="row align-items-center">
+                  <div class="col col-8"> 
+                    <button type="button" class="btn btn-md btn-outline-primary">대여하기</button> 
+                  </div> 
+                  <div class="col me-auto text-end"> 
+                    <small class="text-muted">5 권 남음</small>
+                  </div>
+               </div>
+            </div>
+          </div>
+        </div>
+  
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
