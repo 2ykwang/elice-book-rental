@@ -6,12 +6,12 @@
  
     <div class="container">
     
-      <div class="mt-1 mb-3"> 
+      <!--<div class="mt-1 mb-3"> 
         <button type="button" class="btn btn-md btn-main">기본순</button> 
         <button type="button" class="btn btn-md btn-main">인기순</button> 
         <button type="button" class="btn btn-md btn-main">출판순</button> 
-      </div>
-      <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-3">  
+      </div>-->
+      <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">  
       {% for book in book_list %}
         <div class="col">
           <div class="card book-card shadow-sm h-100">
@@ -54,7 +54,7 @@
       </div>
       
       {% if pagination %}
-      <div class="container mt-3 ms-n2 mb-3 border-bottom"> 
+      <div class="container mt-4 mb-3 ms-n2 border-bottom"> 
         <nav aria-label="Page navigation">
           <ul class="pagination justify-content-center">
             <li class="pe-2 ps-2 page-item {% if not pagination.has_prev %}disabled{% endif %}">
