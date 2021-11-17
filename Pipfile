@@ -13,6 +13,8 @@ click = "*"
 flask-wtf = "*"
 flask-login = "*"
 email-validator = "*"
+pymysql = "*"
+update = "*"
 
 [dev-packages]
 requests = "*"
