@@ -14,3 +14,5 @@
   [https://docs.python.org/ko/3/library/typing.html](https://docs.python.org/ko/3/library/typing.html)
 - pipenv
   [https://github.com/pypa/pipenv](https://github.com/pypa/pipenv)
+- pagination
+  [https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/](https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/)
