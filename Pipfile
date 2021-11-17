@@ -9,6 +9,7 @@ gunicorn = "*"
 sqlalchemy = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*" 
+click = "*"
 
 [dev-packages]
 requests = "*"

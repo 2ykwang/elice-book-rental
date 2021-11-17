@@ -14,7 +14,11 @@
 ## 설치
 
 ```zsh
-$
+# FLASK_APP 환경변수 추가
+$ export FLASK_APP=run.py
+ 
+# 미리 생성된 책 데이터 추가하기
+$ flask init
 ```
 
 ## 환경변수
