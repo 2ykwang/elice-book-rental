@@ -5,28 +5,55 @@ from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from .forms import RegisterForm
 from ..models import User
-from werkzeug.security import generate_password_hash, check_password_hash 
+from .. import db
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 @auth.route('/', methods=['GET', 'POST'])
 def index():
     return redirect(url_for('auth.login'))
 
 
+@auth.route('/register2', methods=['GET', 'POST'])
+def register2():
+    return render_template('auth/register_ok.html', name="양영광")
+
+
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('.index'))
+
     register_form = RegisterForm()
-    
-    if request.method == 'POST': 
-        if register_form.validate_on_submit(): 
-            return "가입 완료"
+
+    if request.method == 'POST':
+        if register_form.validate_on_submit():
+            name = register_form.name.data
+            email = register_form.email.data
+            password = register_form.password.data
+
+            user = User()
+            user.name = name
+            user.email = email
+            user.set_password(password)
+
+            # 이메일 체크
+            if db.session.query(User.email).filter_by(email=email).first() is not None:
+                flash(f"{email} 이미 사용 중인 아이디(이메일) 입니다")
+                return render_template('auth/register.html', form=register_form)
+
+            db.session.add(user)
+            db.session.commit()
+
+            print(user)
+            return render_template('auth/register_ok.html', name=name)
         else:
             for message in register_form.errors.values():
                 flash(str(message[-1]))
-                
+
     return render_template('auth/register.html', form=register_form)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    
     return render_template('auth/login.html')

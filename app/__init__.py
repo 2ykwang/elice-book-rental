@@ -15,6 +15,7 @@ def create_app(config_name):
     # init
     db.init_app(app)
     login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
     
     # jinja date format
     from .jinja_datetime import format_datetime
