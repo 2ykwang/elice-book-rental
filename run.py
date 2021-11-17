@@ -35,6 +35,6 @@ def init():
             book.isbn = item[6]
             book.description = item[7]
             book.link = item[8]
-            book.image_url = f'/images/{item[9]}'
+            book.image_url = f'images/{item[9]}'
             db.session.add(book)
             db.session.commit()

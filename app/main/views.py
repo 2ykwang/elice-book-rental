@@ -1,5 +1,6 @@
 from . import main
 from ..models import Book
+from .. import db
 from flask import render_template, request, current_app
 
 
@@ -8,7 +9,7 @@ def index():
     page = request.args.get("page", default=1, type=int) 
     book_per_page = current_app.config["BOOK_PER_PAGE"]
 
-    query = Book.query
+    query = Book.query 
     pagination = query.paginate(page, book_per_page, error_out=False)
     books = pagination.items
     print(pagination)
@@ -17,8 +18,7 @@ def index():
 
 @main.route("/detail/<int:id>")
 def book_detail(id):
-     
-    query = Book.query
-    book = query.filter(Book.id == id).one()
+      
+    book = db.session.query(Book).filter(Book.id==id).first() 
     return render_template("book_detail.html", book=book)
  
