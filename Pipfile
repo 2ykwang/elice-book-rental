@@ -10,6 +10,9 @@ sqlalchemy = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*" 
 click = "*"
+flask-wtf = "*"
+flask-login = "*"
+email-validator = "*"
 
 [dev-packages]
 requests = "*"
