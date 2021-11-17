@@ -1,6 +1,11 @@
 # 엘리스 3기 도서관 대출 서비스 프로젝트
 
-![waka](https://wakatime.com/badge/user/a1389358-644f-4cbf-80e6-9eeb4261e9f2/project/bf9ae3d9-8a78-45ad-91f8-b7a20afc568b.svg?style=for-the-badge)
+<p align="center">
+  <img src="https://wakatime.com/badge/user/a1389358-644f-4cbf-80e6-9eeb4261e9f2/project/bf9ae3d9-8a78-45ad-91f8-b7a20afc568b.svg?style=for-the-badge">
+  <br><br><br>
+  <a href="https://elice-book-rental.herokuapp.com/">DEMO</a>
+  <br><br><br>
+</p>
 
 ## TOC
 
