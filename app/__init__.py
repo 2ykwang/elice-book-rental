@@ -9,7 +9,7 @@ login_manager = LoginManager()
 def create_app(config_name):
     app = Flask(__name__)
     
-    # load config
+    # load config 
     app.config.from_object(get_config(config_name))
     
     # init
