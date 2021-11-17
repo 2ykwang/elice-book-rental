@@ -1,22 +1,71 @@
 @import url(//font.elice.io/EliceDigitalBaeum.css);
 
+:root {
+    --main-color: #564BBE;
+    --default-typo-white: #fefefe;
+    --default-typo-black: #333;
+    --main-bg-color: #F7F9FA;
+}
 
+/* 전역 */
 html,
 body {
+    background-color: var(--main-bg-color);
     font-family: "Elice Digital Baeum", sans-serif;
 }
 
+a {
+    text-decoration: none !important
+}
+
+a:hover {
+    text-decoration: none !important
+}
+
+.card-link {
+    color: var(--default-typo-black);
+}
+
+img {
+    max-width: 100%;
+}
+
+
+
+/* 북 리스트 */
+.card-link:hover {
+    color: var(--main-color);
+}
+
 .nav>li>a:hover {
-    color: #564BBE;
+    color: var(--main-color);
 }
 
-.book-image{
-    object-fit: cover;
+.page-item.active .page-link {
+    color: var(--default-typo-white);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
 }
-.book-title{ 
+
+.btn-main {
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.btn-main:hover {
+    color: var(--default-typo-white);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.book-image {
+    object-fit: contain;
+}
+
+.book-title {
     font-weight: 600;
+    height: 50px;
 }
-
 
 .ratings {
     margin-right: 10px
@@ -26,6 +75,7 @@ body {
     color: #cecece;
     font-size: 32px
 }
+
 .rating-color {
     color: #fbc634 !important
 }
@@ -45,3 +95,56 @@ body {
     font-size: 18px;
     margin-bottom: 2px
 }
+
+
+/* 상세 페이지 */
+
+.preview {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 996px) {
+    .preview {
+        margin-bottom: 20px;
+    }
+}
+
+.preview-pic img {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+
+    overflow: hidden;
+    width: 100%;
+}
+
+.preview-card {
+    padding: 3em;
+    line-height: 1.5em;
+}
+
+.book-detail-header {
+    text-transform: UPPERCASE;
+    line-height: 10px;
+}
+
+.product-title,
+.rating,
+.product-description {
+    margin-bottom: 15px;
+}
+
+.product-title {
+    margin-top: 0;
+}
+
+/*# sourceMappingURL=style.css.map */

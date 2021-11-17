@@ -4,6 +4,7 @@ from . import db
 
 
 class Book(db.Model):
+    """책 Model"""
     __tablename__ = "books"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +19,13 @@ class Book(db.Model):
     image_url = db.Column(db.String(150), nullable=False)
 
 
+# class Stock(db.Model):
+#     """책 재고 Model"""
+#     pass
+
+
 class User(db.Model):
+    """사용자 Model"""
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -30,16 +37,18 @@ class User(db.Model):
 
 
 class Rental(db.Model):
+    """사용자 책 대여 Model"""
     __tablename__ = 'rental'
 
     id = db.Column(db.Integer, primary_key=True)
-    created = db.Column(db.DateTime, default=datetime.utcnow)
     returned = db.Column(db.Boolean, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
     return_date = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 class Review(db.Model):
+    """책 후기 Model"""
     __tablename__ = 'review'
 
     id = db.Column(db.Integer, primary_key=True)

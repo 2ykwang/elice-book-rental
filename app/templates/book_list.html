@@ -1,33 +1,48 @@
 {% extends "layout.html" %}
 {% block title %}도서 목록{% endblock %}
 
-{% block content %}
-<div class="album py-5 bg-light">
+{% block content %} 
+<div class="album p-2">
+ 
     <div class="container">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3"> 
-
+    
+      <div class="mt-1 mb-3"> 
+        <button type="button" class="btn btn-md btn-main">기본순</button> 
+        <button type="button" class="btn btn-md btn-main">인기순</button> 
+        <button type="button" class="btn btn-md btn-main">출판순</button> 
+      </div>
+      <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-3">  
+      {% for book in book_list %}
         <div class="col">
-          <div class="card shadow-sm h-100 ">
-            <img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename='images/1.png') }}" focusable="false"> </img>
+          <div class="card book-card shadow-sm h-100">
+            <a href="{{url_for('.book_detail', id=book.id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= book.image_url) }}" focusable="false"> </img></a>
 
             <div class="card-body">
-              <h5 class="card-title book-title">주니어를 위한 최선의 코딩 학습 똑똑한 파이썬</h5>
+              <h5 class="card-title book-title"><a class="card-link" href="{{url_for('.book_detail', id=book.id)}}">{{ book.book_name }}</a></h5>
 
                 <div class="row align-items-center">
                   <div class="col col-6"> 
-                    <h6 class="card-subtitle mb-2 text-muted">황재호/황예린</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
                   </div> 
-                  <div class="col me-auto text-end">                  
-                    <div class="card-subtitle mb-2 small-ratings"> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star rating-color"></i> <i class="fa fa-star"></i> </div> 
+                  <div class="col me-auto text-end">
+                    <!-- 별점 -->
+                    <div class="card-subtitle mb-2 small-ratings">
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star rating-color"></i>
+                      <i class="fa fa-star"></i>
+                    </div>
+
                   </div>
                </div>
  
                 <div class="row align-items-center">
                   <div class="col col-8"> 
-                    <button type="button" class="btn btn-md btn-outline-primary">대여하기</button> 
+                    <button type="button" class="btn btn-md btn-main">대여하기</button> 
                   </div> 
                   <div class="col me-auto text-end"> 
+                    <!-- 남은 책 -->
                     <small class="text-muted">5 권 남음</small>
                   </div>
                </div>
@@ -35,8 +50,33 @@
           </div>
         </div>
   
-
+      {% endfor %} 
       </div>
+      
+      {% if pagination %}
+      <div class="container mt-3 ms-n2 mb-3 border-bottom"> 
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="pe-2 ps-2 page-item {% if not pagination.has_prev %}disabled{% endif %}">
+              <a class="page-link btn-main" href="{% if pagination.has_prev %}{{ url_for('.index', page=pagination.prev_num) }}{% endif %}">&larr;</a>
+            </li>
+          
+            {% for page in pagination.iter_pages() %}
+                {% if page %}
+                    <li class="page-item {% if page == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', page = page) }}">{{page}}</a></li> 
+                {% else %}
+                <li class="disabled"><a href="#">&hellip;</a></li>
+                {% endif %}
+            {% endfor %}
+
+            <li class="pe-2 ps-2 page-item {% if not pagination.has_next %}disabled{% endif %}">
+              <a class="page-link btn-main" href="{% if pagination.has_next %}{{ url_for('.index', page=pagination.next_num) }}{% endif %}">&rarr;</a>
+            </li>
+          </ul>
+        </nav>  
+      </div>
+      {% endif %}
+ 
     </div>
   </div>
 {% endblock %}
