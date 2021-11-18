@@ -15,11 +15,6 @@ def index():
     return redirect(url_for('auth.login'))
 
 
-@auth.route('/register2', methods=['GET', 'POST'])
-def register2():
-    return render_template('auth/register_ok.html', name="양영광")
-
-
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
