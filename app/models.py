@@ -1,3 +1,4 @@
+from typing import Dict, Union, Tuple
 from datetime import datetime, timedelta
 from enum import unique
 from . import db, login_manager
@@ -22,22 +23,36 @@ class Book(db.Model):
     image_url = db.Column(db.String(150), nullable=False)
     stock = db.Column(db.Integer, default=10)
 
-    def increase_viewer(self, count: int):
+    def increase_viewer(self, count: int = 1):
         # todo: 트랜잭션을 일괄적으로 처리할 수 있는 방법을 생각해보자.
         self.viewer += count
         db.session.add(self)
         db.session.commit()
-        
+
     def increase_stock(self, count: int):
         self.stock += count
         db.session.add(self)
         db.session.commit()
-        
+
     def decrease_stock(self, count: int):
         self.stock -= count
         db.session.add(self)
         db.session.commit()
-        
+
+    def get_score(self) -> Union[Dict, None]:
+
+        # 자신을 참조하고 있는 review row 뽑아오기
+        reviews = db.session.query(Review).filter(
+            Review.book_id == self.id).all()
+
+        count = len(reviews)
+        if count > 0:
+            result = {'score': 0, 'count': 0}
+            result['score'] = sum([review.score for review in reviews])/count
+            result['count'] = count
+            return result
+        return None
+
 
 class User(UserMixin, db.Model):
     """사용자 Model"""
@@ -91,7 +106,7 @@ class Rental(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    def set_period(self, days:int =7):
+    def set_period(self, days: int = 7):
         """책 대여 기간을 설정합니다."""
         self.return_date = datetime.utcnow() + timedelta(days=days)
 
@@ -106,5 +121,17 @@ class Review(db.Model):
     created = db.Column(db.DateTime, default=datetime.utcnow)
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    
-    
+
+    def __init__(self, content: str = "", score: int = 0, book_id: int = None, user_id: int = None):
+        """리뷰 Model 객체 초기화
+
+        Args:
+            content (str, optional): 리뷰 내용. Defaults to "".
+            score (int, optional): 점수. Defaults to 0.
+            book_id (int, optional): user_id fk. Defaults to None.
+            user_id (int, optional): book_id fk. Defaults to None.
+        """
+        self.content = content
+        self.score = score
+        self.book_id = book_id
+        self.user_id = user_id
