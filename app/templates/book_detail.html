@@ -1,3 +1,4 @@
+{% import "macro/_rating.html" as rating %}
 {% extends "layout.html" %}
 {% block title %}{{ book.book_name }}{% endblock %}
 
@@ -17,14 +18,17 @@
                     <h3 class="product-title">{{book.book_name}}</h3>
                     <div class="rating">
 
-                        <div class="small-ratings">
-                            <i class="fa fa-star rating-color"></i>
-                            <i class="fa fa-star rating-color"></i>
-                            <i class="fa fa-star rating-color"></i>
-                            <i class="fa fa-star rating-color"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <span class="review-no">41 개의 후기</span>
+                        {% set score = book.get_score() %} 
+                        <div class="small-ratings">  
+                            <div class="card-subtitle mb-2 small-ratings">
+                            {% if score %}
+                                {{rating.print_rating(get_stars_count(score["score"]))}}
+                            {% else %}
+                                {{rating.print_rating(get_stars_count(0))}}
+                            {% endif %}
+                            </div> 
+                        </div> 
+                        <span class="review-no">{% if score %}{{score["count"]}}{% else %}0{% endif %} 개의 리뷰</span> 
                     </div>
                     <p class="product-description">{{book.description}}</p>  
                     <p class="book-detail-header"><strong>저자: </strong>{{book.author}}</p>
