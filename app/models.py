@@ -17,14 +17,9 @@ class Book(db.Model):
     pages = db.Column(db.Integer, nullable=False)
     isbn = db.Column(db.BigInteger, nullable=False)
     description = db.Column(db.Text, nullable=False)
-    viewer = db.Column(db.Integer, default=0) # 조회수
+    viewer = db.Column(db.Integer, default=0)  # 조회수
     link = db.Column(db.String(128), nullable=False)
     image_url = db.Column(db.String(150), nullable=False)
-
-
-# class Stock(db.Model):
-#     """책 재고 Model"""
-#     pass
 
 
 class User(UserMixin, db.Model):
@@ -44,10 +39,25 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def update_last_login(self):
+        self.last_login = datetime.utcnow()
+        print(self.last_login)
+        db.session.add(self)
+        db.session.commit()
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+class Stock(db.Model):
+    """책 재고 Model"""
+    __tablename__ = 'stock'
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, default=30)
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'))
+
 
 class Rental(db.Model):
     """사용자 책 대여 Model"""

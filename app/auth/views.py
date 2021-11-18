@@ -50,7 +50,6 @@ def register():
             db.session.add(user)
             db.session.commit()
 
-            print(user)
             return render_template('auth/register_ok.html', name=name)
         else:
             for message in register_form.errors.values():
@@ -72,6 +71,7 @@ def login():
             password = login_form.password.data
             user = User.query.filter_by(email=email).first()
             if user is not None and user.check_password(password):
+                user.update_last_login()
                 login_user(user) 
                 return redirect(url_for('main.index'))
             else:
