@@ -60,7 +60,7 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated: 
+    if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
     login_form = LoginForm()
@@ -69,18 +69,20 @@ def login():
         if login_form.validate_on_submit():
             email = login_form.email.data
             password = login_form.password.data
-            user = User.query.filter_by(email=email).first()
+            user = db.session.query(User).filter(User.email == email).first()
+
             if user is not None and user.check_password(password):
+                login_user(user)
                 user.update_last_login()
-                login_user(user) 
                 return redirect(url_for('main.index'))
             else:
                 flash("아이디 또는 비밀번호를 확인해주세요.")
         else:
-            for message in login_form.errors.values():  
+            for message in login_form.errors.values():
                 flash(str(message[-1]))
 
     return render_template('auth/login.html', form=login_form)
+
 
 @auth.route('/logout')
 def logout():
