@@ -61,12 +61,8 @@
               <a class="page-link btn-main" href="{% if pagination.has_prev %}{{ url_for('.index', page=pagination.prev_num) }}{% endif %}">&larr;</a>
             </li>
           
-            {% for page in pagination.iter_pages() %}
-                {% if page %}
-                    <li class="page-item {% if page == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', page = page) }}">{{page}}</a></li> 
-                {% else %}
-                <li class="disabled"><a href="#">&hellip;</a></li>
-                {% endif %}
+            {% for i, page in enumerate(pagination.iter_pages()) %} 
+                    <li class="page-item {% if i+1 == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', page = i+1) }}">{{i+1}}</a></li>   
             {% endfor %}
 
             <li class="pe-2 ps-2 page-item {% if not pagination.has_next %}disabled{% endif %}">

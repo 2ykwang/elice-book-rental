@@ -9,7 +9,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     BOOK_PER_PAGE = 8
-    
+    BOOK_DURATION = 7 # days
     @staticmethod
     def init_app(app):
         pass

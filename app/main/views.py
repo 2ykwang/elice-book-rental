@@ -12,13 +12,13 @@ def index():
     query = Book.query 
     pagination = query.paginate(page, book_per_page, error_out=False)
     books = pagination.items
-    print(pagination)
 
-    return render_template("book_list.html", book_list=books, pagination=pagination)
+    return render_template("book_list.html", book_list=books, pagination=pagination, enumerate=enumerate)
 
 @main.route("/detail/<int:id>")
 def book_detail(id):
       
     book = db.session.query(Book).filter(Book.id==id).first() 
+    book.increase_viewer()
     return render_template("book_detail.html", book=book)
  
