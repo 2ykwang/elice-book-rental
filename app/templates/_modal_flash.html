@@ -1,0 +1,25 @@
+{%with messages = get_flashed_messages(with_categories=true)%}
+  {% if messages %}
+  <div class="modal fade" id="flashModal" tabindex="-1" aria-labelledby="flashModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="flashModalLabel">안내</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+        {%for category, message in messages %} 
+          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+              <strong>#</strong> {{message}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {%endfor%} 
+        </div>
+        <div class="modal-footer"> 
+          <button type="button" class="btn btn-main" data-bs-dismiss="modal">알겠습니다.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{%endwith%}

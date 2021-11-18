@@ -27,15 +27,6 @@
         </div>
  
         <button class="mt-2 mb-2 w-100 btn btn-lg btn-main" type="submit">가입하기</button>
-
-        {%with messages = get_flashed_messages()%}
-            {%for message in messages %} 
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>#</strong> {{message}}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {%endfor%}
-        {%endwith%}
   </form>
 </div>
 {% endblock %}

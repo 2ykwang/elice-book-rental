@@ -59,6 +59,8 @@
     <div class ="bg-light py-0">
       {% block content %}{% endblock %}
     </div>
+    {% include "_modal_flash.html" %}
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
   </body>
 </html>
