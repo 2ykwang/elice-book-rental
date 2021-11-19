@@ -33,7 +33,7 @@
                 <div class="row align-items-center">  
                     <!-- 별점 -->
                   <div class ="col-7">
-                  {% set score = book.get_score() %}
+                  {% set score = get_score(book.id) %}
                   {% if score %} 
                   <div class="small-ratings">
                     {{rating.print_rating(get_stars_count(score["score"]))}}({{score["count"]}})

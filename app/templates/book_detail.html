@@ -18,7 +18,7 @@
                     <h3 class="product-title">{{book.book_name}}</h3>
                     <div class="rating">
 
-                        {% set score = book.get_score() %} 
+                        {% set score = get_score(book.id) %} 
                         <div class="small-ratings">  
                             <div class="card-subtitle mb-2 small-ratings">
                             {% if score %}
