@@ -16,3 +16,5 @@
   [https://github.com/pypa/pipenv](https://github.com/pypa/pipenv)
 - pagination
   [https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/](https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/)
+- 어플리케이션 컨텍스트
+- [https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html](https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html)

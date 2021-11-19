@@ -15,11 +15,6 @@ def index():
     return redirect(url_for('auth.login'))
 
 
-@auth.route('/register2', methods=['GET', 'POST'])
-def register2():
-    return render_template('auth/register_ok.html', name="양영광")
-
-
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -50,7 +45,6 @@ def register():
             db.session.add(user)
             db.session.commit()
 
-            print(user)
             return render_template('auth/register_ok.html', name=name)
         else:
             for message in register_form.errors.values():
@@ -61,7 +55,7 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_authenticated: 
+    if current_user.is_authenticated:
         return redirect(url_for('main.index'))
 
     login_form = LoginForm()
@@ -70,17 +64,20 @@ def login():
         if login_form.validate_on_submit():
             email = login_form.email.data
             password = login_form.password.data
-            user = User.query.filter_by(email=email).first()
+            user = db.session.query(User).filter(User.email == email).first()
+
             if user is not None and user.check_password(password):
-                login_user(user) 
+                login_user(user)
+                user.update_last_login()
                 return redirect(url_for('main.index'))
             else:
                 flash("아이디 또는 비밀번호를 확인해주세요.")
         else:
-            for message in login_form.errors.values():  
+            for message in login_form.errors.values():
                 flash(str(message[-1]))
 
     return render_template('auth/login.html', form=login_form)
+
 
 @auth.route('/logout')
 def logout():

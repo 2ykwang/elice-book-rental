@@ -2,7 +2,7 @@ from . import main
 from ..models import Book
 from .. import db
 from flask import render_template, request, current_app
-
+from app.util import get_stars_count
 
 @main.route("/")
 def index():
@@ -12,13 +12,13 @@ def index():
     query = Book.query 
     pagination = query.paginate(page, book_per_page, error_out=False)
     books = pagination.items
-    print(pagination)
 
-    return render_template("book_list.html", book_list=books, pagination=pagination)
+    return render_template("book_list.html", book_list=books, pagination=pagination, enumerate=enumerate, get_stars_count=get_stars_count)
 
 @main.route("/detail/<int:id>")
 def book_detail(id):
       
     book = db.session.query(Book).filter(Book.id==id).first() 
-    return render_template("book_detail.html", book=book)
+    book.increase_viewer()
+    return render_template("book_detail.html", book=book, get_stars_count=get_stars_count)
  

@@ -101,4 +101,6 @@ web gunicorn -c ./gunicorn.config.py
 
 [프로젝트 구현 상황](/docs/todo.md)
 
+[내가 한 것들](/docs/review.md)
+
 [참고한 문서](/docs/reference.md)
