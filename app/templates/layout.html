@@ -34,8 +34,8 @@
                     {{current_user.name}}님
                   </a>
                   <ul class="dropdown-menu text-small" aria-labelledby="dropdown-user" style=""> 
-                    <li><a href="#" class="dropdown-item">대여기록</a></li>
-                    <li><a href="#" class="dropdown-item">반납하기</a></li> 
+                    <li><a href="{{url_for('mybook.rented_books_history')}}" class="dropdown-item">대여기록</a></li>
+                    <li><a href="{{url_for('mybook.rented_books')}}" class="dropdown-item">반납하기</a></li> 
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">로그아웃</a></li>
                   </ul>
@@ -48,8 +48,8 @@
               {% if not current_user.is_authenticated %}
               <li><a href="{{url_for('auth.login')}}" class="nav-link link-dark px-2">로그인</a></li>
               {% else %}
-              <li><a href="#" class="nav-link px-2 link-dark">대여기록</a></li>
-              <li><a href="#" class="nav-link px-2 link-dark">반납하기</a></li>
+              <li><a href="{{url_for('mybook.rented_books_history')}}" class="nav-link px-2 link-dark">대여기록</a></li>
+              <li><a href="{{url_for('mybook.rented_books')}}" class="nav-link px-2 link-dark">반납하기</a></li>
               <li><a href="{{url_for('auth.logout')}}" class="nav-link px-2 link-dark">로그아웃</a></li>
               {% endif %}
             </ul>

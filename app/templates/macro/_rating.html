@@ -1,9 +1,7 @@
 {% macro print_rating(star_count) -%} 
     {% for i in range(5) %}
-        {% if i < star_count %}
-            <i class="fa fa-star rating-color"></i>
-        {% else %}
-            <i class="fa fa-star"></i>
+        {% if i < star_count %}<i class="fa fa-star rating-color"></i>
+        {% else %}<i class="fa fa-star"></i>
         {% endif %} 
     {% endfor %} 
 {%- endmacro %}
