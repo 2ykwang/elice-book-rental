@@ -3,7 +3,7 @@ import unittest
 from app import create_app, db
 from app.services import RentalService
 
-from fake import make_fake_book, make_fake_user
+from tests import make_fake_book, make_fake_user
 
 
 class TestBook(unittest.TestCase):
