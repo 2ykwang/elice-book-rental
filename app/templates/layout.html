@@ -1,65 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="//font.elice.io/EliceDigitalBaeum.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <title>엘리스 도서관 - {% block title %}{% endblock %}</title>
   </head>
-  <body>
-    <header class="p-3 mb-3 border-bottom">
-        <div class="container"> 
-          <div class="nav col-12 col-lg-auto me-lg-auto mb-3 justify-content-center mb-md-0">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                <img class="bi me-2" width="40" height="32" src="{{ url_for('static', filename='media/logo_elice_white.svg') }}"> </img>
-            </a>
-            <ul class="nav me-auto justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 link-dark">레이서 도서관</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">인기 도서</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">신간</a></li>
-            </ul>
-
-            <ul class="nav d-none d-md-block">
-                {% if not current_user.is_authenticated %}
-                <li><a href="{{url_for('auth.login')}}" class="nav-link link-dark px-2">로그인</a></li>
-                {% else %}
-                <div class="dropdown text-end">
-                  <a href="#" class="nav-link link-dark px-2 dropdown-toggle" id="dropdown-user" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{current_user.name}}님
-                  </a>
-                  <ul class="dropdown-menu text-small" aria-labelledby="dropdown-user" style=""> 
-                    <li><a href="{{url_for('mybook.rented_books_history')}}" class="dropdown-item">대여기록</a></li>
-                    <li><a href="{{url_for('mybook.rented_books')}}" class="dropdown-item">반납하기</a></li> 
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">로그아웃</a></li>
-                  </ul>
-                </div> 
-                {% endif %}
-            </ul>
-            
-            <!-- size < md 레이아웃-->
-            <ul class="nav me-auto justify-content-center d-md-none">
-              {% if not current_user.is_authenticated %}
-              <li><a href="{{url_for('auth.login')}}" class="nav-link link-dark px-2">로그인</a></li>
-              {% else %}
-              <li><a href="{{url_for('mybook.rented_books_history')}}" class="nav-link px-2 link-dark">대여기록</a></li>
-              <li><a href="{{url_for('mybook.rented_books')}}" class="nav-link px-2 link-dark">반납하기</a></li>
-              <li><a href="{{url_for('auth.logout')}}" class="nav-link px-2 link-dark">로그아웃</a></li>
-              {% endif %}
-            </ul>
-          </div>
-        </div>
-    </header>
+  <body class="d-flex flex-column h-100 vsc-initialized">
+    {% include "layout/_header.html" %}
     <div class ="bg-light py-0">
       {% block content %}{% endblock %}
     </div>
     {% include "_modal_flash.html" %}
+
+    {% include "layout/_footer.html" %}
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/common.js') }}"></script>
   </body>

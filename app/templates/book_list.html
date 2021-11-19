@@ -2,78 +2,71 @@
 {% extends "layout.html" %}
 {% block title %}도서 목록{% endblock %}
 
-{% block content %} 
-<div class="album p-2">
- 
-    <div class="container">
-    
-      <!--<div class="mt-1 mb-3"> 
-        <button type="button" class="btn btn-md btn-main">기본순</button> 
-        <button type="button" class="btn btn-md btn-main">인기순</button> 
-        <button type="button" class="btn btn-md btn-main">출판순</button> 
-      </div>-->
-      <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">  
-      {% for book in book_list %}
-        <div class="col">
-          <div class="card book-card shadow-sm h-100">
-            <a href="{{url_for('.book_detail', id=book.id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= book.image_url) }}" focusable="false"> </img></a>
+{% block content %}  
+<div class="container">
+  <!--<div class="mt-1 mb-3"> 
+    <button type="button" class="btn btn-md btn-main">기본순</button> 
+    <button type="button" class="btn btn-md btn-main">인기순</button> 
+    <button type="button" class="btn btn-md btn-main">출판순</button> 
+  </div>-->
+  <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">  
+  {% for book in book_list %}
+    <div class="col">
+      <div class="card book-card shadow-sm h-100">
+        <a href="{{url_for('.book_detail', id=book.id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= book.image_url) }}" focusable="false"> </img></a>
 
-            <div class="card-body">
-              <h5 class="card-title book-title" alt ="{{ book.book_name }}"><a class="card-link" href="{{url_for('.book_detail', id=book.id)}}">{{ book.book_name }}</a></h5>
+        <div class="card-body">
+          <h5 class="card-title book-title" alt ="{{ book.book_name }}"><a class="card-link" href="{{url_for('.book_detail', id=book.id)}}">{{ book.book_name }}</a></h5>
 
-                <div class="row align-items-center">
-                  <div class="col col-7"> 
-                    <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
-                  </div>  
-                  <div class="col me-auto text-end"> 
-                   <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">{{book.stock}} 권 남음</h6> 
-                  </div>   
-               </div>
- 
-                <div class="row align-items-center">  
-                    <!-- 별점 -->
-                  <div class ="col-7">
-                  {% set score = get_score(book.id) %}
-                  {% if score %} 
-                  <div class="small-ratings">
-                    {{rating.print_rating(get_stars_count(score["score"]))}}({{score["count"]}})
-                  </div>
-                  {% else %}
-                  <div class="small-ratings">
-                    {{rating.print_rating(get_stars_count(0))}}
-                  </div>
-                  {% endif %}
-                  </div>
-                  <div class="col me-auto text-end">  
-                      <a href="{{url_for('.book_detail', id=book.id)}}"><button type="button" class="btn btn-sm btn-main">대여하기</button></a> 
-                  </div>
-               </div>
+            <div class="row align-items-center">
+              <div class="col col-7"> 
+                <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
+              </div>  
+              <div class="col me-auto text-end"> 
+                <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">{{book.stock}} 권 남음</h6> 
+              </div>   
             </div>
-          </div>
-        </div> 
-      {% endfor %} 
-      </div>
-      
-      {% if pagination %}
-      <div class="container mt-4 mb-3 ms-n2 border-bottom"> 
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="pe-2 ps-2 page-item {% if not pagination.has_prev %}disabled{% endif %}">
-              <a class="page-link btn-main" href="{% if pagination.has_prev %}{{ url_for('.index', page=pagination.prev_num) }}{% endif %}">&larr;</a>
-            </li>
-          
-            {% for i, page in enumerate(pagination.iter_pages()) %} 
-                    <li class="page-item {% if i+1 == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', page = i+1) }}">{{i+1}}</a></li>   
-            {% endfor %}
 
-            <li class="pe-2 ps-2 page-item {% if not pagination.has_next %}disabled{% endif %}">
-              <a class="page-link btn-main" href="{% if pagination.has_next %}{{ url_for('.index', page=pagination.next_num) }}{% endif %}">&rarr;</a>
-            </li>
-          </ul>
-        </nav>  
+            <div class="row align-items-center">  
+                <!-- 별점 -->
+              <div class ="col-7">
+              {% set score = get_score(book.id) %}
+              {% if score %} 
+              <div class="small-ratings">
+                {{rating.print_rating(get_stars_count(score["score"]))}}({{score["count"]}})
+              </div>
+              {% else %}
+              <div class="small-ratings">
+                {{rating.print_rating(get_stars_count(0))}}
+              </div>
+              {% endif %}
+              </div>
+              <div class="col me-auto text-end">  
+                  <a href="{{url_for('.book_detail', id=book.id)}}"><button type="button" class="btn btn-sm btn-main">대여하기</button></a> 
+              </div>
+            </div>
+        </div>
       </div>
-      {% endif %}
- 
-    </div>
+    </div> 
+  {% endfor %} 
   </div>
+  
+  {% if pagination %}
+  <div class="container mt-4 mb-3 ms-n2"> 
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="pe-2 ps-2 page-item {% if not pagination.has_prev %}disabled{% endif %}">
+          <a class="page-link btn-main" href="{% if pagination.has_prev %}{{ url_for('.index', page=pagination.prev_num) }}{% endif %}">&larr;</a>
+        </li> 
+        {% for i, page in enumerate(pagination.iter_pages()) %} 
+                <li class="page-item {% if i+1 == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', page = i+1) }}">{{i+1}}</a></li>   
+        {% endfor %}
+        <li class="pe-2 ps-2 page-item {% if not pagination.has_next %}disabled{% endif %}">
+          <a class="page-link btn-main" href="{% if pagination.has_next %}{{ url_for('.index', page=pagination.next_num) }}{% endif %}">&rarr;</a>
+        </li>
+      </ul>
+    </nav>  
+  </div>
+  {% endif %}
+</div> 
 {% endblock %}
