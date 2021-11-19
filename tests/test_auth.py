@@ -1,5 +1,5 @@
 import unittest
-from app.validation import password_valid_check
+from app.utility import password_valid_check
 
 # 순환 참조 주의
 from app import create_app, db
