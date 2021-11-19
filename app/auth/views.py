@@ -1,13 +1,11 @@
 
 from flask import render_template, redirect, request, url_for, flash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, current_user
 
 from . import auth
-from ..validation import password_valid_check
-from .forms import RegisterForm, LoginForm
-from ..models import User
-from .. import db
-from werkzeug.security import generate_password_hash, check_password_hash
+from .forms import RegisterForm, LoginForm 
+from app.validation import password_valid_check
+from app.services.user import UserService 
 
 
 @auth.route('/', methods=['GET', 'POST'])
@@ -33,17 +31,11 @@ def register():
                 return render_template('auth/register.html', form=register_form)
 
             # 이메일 체크
-            if db.session.query(User.email).filter_by(email=email).first() is not None:
+            if UserService.get_user_by_email(email) is not None:
                 flash(f"{email} 이미 사용 중인 아이디(이메일) 입니다")
                 return render_template('auth/register.html', form=register_form)
 
-            user = User()
-            user.name = name
-            user.email = email
-            user.set_password(password)
-
-            db.session.add(user)
-            db.session.commit()
+            UserService.add_user(name, email, password)
 
             return render_template('auth/register_ok.html', name=name)
         else:
@@ -64,11 +56,13 @@ def login():
         if login_form.validate_on_submit():
             email = login_form.email.data
             password = login_form.password.data
-            user = db.session.query(User).filter(User.email == email).first()
 
-            if user is not None and user.check_password(password):
+            # user = db.session.query(User).filter(User.email == email).first() | -> get_user_by_email
+            user = UserService.get_user_by_email(email)
+
+            if user is not None and UserService.check_password(user.id, password):
                 login_user(user)
-                user.update_last_login()
+                UserService.update_last_login(user.id)
                 return redirect(url_for('main.index'))
             else:
                 flash("아이디 또는 비밀번호를 확인해주세요.")
