@@ -1,6 +1,7 @@
 from typing import Any, Union, List
 from datetime import datetime, timedelta
 from app.models import Book, Rental
+from app.utility import korea_datetime
 
 from app import db
 
@@ -35,7 +36,7 @@ class RentalService(object):
         rental.user_id = user_id
         rental.book_id = book_id
         rental.returned = False
-        rental.return_date = datetime.utcnow() + timedelta(days=period)
+        rental.return_date = korea_datetime() + timedelta(days=period)
 
         db.session.add(rental)
         db.session.commit()

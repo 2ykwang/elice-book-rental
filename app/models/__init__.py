@@ -1,7 +1,10 @@
-from typing import Dict, Union, Tuple
-from datetime import datetime, timedelta
+from typing import Dict, Union, Tuple 
 from enum import unique
+
 from app import db, login_manager
+from app.utility import korea_datetime
+from datetime import timedelta
+
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -32,8 +35,8 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    created = db.Column(db.DateTime, default=datetime.utcnow)
-    last_login = db.Column(db.DateTime, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=korea_datetime)
+    last_login = db.Column(db.DateTime, default=korea_datetime)
 
     def __init__(self, name: str = "", email: str = "", password_hash: str = "") -> None:
         """사용자 Model 객체 초기화
@@ -58,14 +61,14 @@ class Rental(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     returned = db.Column(db.Boolean, nullable=False)
-    created = db.Column(db.DateTime, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=korea_datetime)
     return_date = db.Column(db.DateTime)
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def set_period(self, days: int = 7):
         """책 대여 기간을 설정합니다."""
-        self.return_date = datetime.utcnow() + timedelta(days=days)
+        self.return_date = korea_datetime() + timedelta(days=days)
 
 
 class Review(db.Model):
@@ -75,7 +78,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer, nullable=False)
-    created = db.Column(db.DateTime, default=datetime.utcnow)
+    created = db.Column(db.DateTime, default=korea_datetime)
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 

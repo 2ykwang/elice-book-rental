@@ -1,5 +1,5 @@
 from typing import Union
-from datetime import datetime
+from app.utility import korea_datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models import User
 from app import db
@@ -28,6 +28,6 @@ class UserService(object):
     @staticmethod
     def update_last_login(user_id: int) -> None:
         user = db.session.query(User).filter(User.id == user_id).first()
-        user.last_login = datetime.utcnow()
+        user.last_login = korea_datetime()
         db.session.add(user)
         db.session.commit()
