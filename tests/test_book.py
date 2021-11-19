@@ -27,6 +27,18 @@ class TestBook(unittest.TestCase):
 
         self.assertEqual(EXPECTED, ANSWER)
 
+    def test_increase_views(self) -> None: 
+        book = make_fake_book()
+        book.viewer = 10 
+        db.session.add(book)
+        db.session.commit()
+
+        BookService.increase_viewer(book.id)
+        BookService.increase_viewer(book.id)
+        BookService.increase_viewer(book.id)
+        EXPECTED = 13
+        self.assertEqual(EXPECTED, book.viewer)
+        
     def test_get_score(self) -> None:
         # 더미 데이터 생성
         user1 = make_fake_user()
