@@ -30,24 +30,23 @@
                   </div>   
                </div>
  
-                <div class="row align-items-center"> 
-                  <div class="col col-7">
+                <div class="row align-items-center">  
                     <!-- 별점 -->
-                    {% set score = book.get_score() %}
-                    {% if score %} 
-                    <div class="card-subtitle mb-2 small-ratings">
-                      {{rating.print_rating(get_stars_count(score["score"]))}}({{score["count"]}})
-                    </div>
-                    {% else %}
-                    <div class="card-subtitle mb-2 small-ratings">
-                      {{rating.print_rating(get_stars_count(0))}}
-                    </div>
-                    {% endif %} 
+                  <div class ="col-7">
+                  {% set score = book.get_score() %}
+                  {% if score %} 
+                  <div class="small-ratings">
+                    {{rating.print_rating(get_stars_count(score["score"]))}}({{score["count"]}})
                   </div>
-                  
-                  <div class="col me-auto text-end"> 
-                    <a href="{{url_for('.book_detail', id=book.id)}}"><button type="button" class="btn btn-sm btn-main">대여하기</button></a>
-                  </div> 
+                  {% else %}
+                  <div class="small-ratings">
+                    {{rating.print_rating(get_stars_count(0))}}
+                  </div>
+                  {% endif %}
+                  </div>
+                  <div class="col me-auto text-end">  
+                      <a href="{{url_for('.book_detail', id=book.id)}}"><button type="button" class="btn btn-sm btn-main">대여하기</button></a> 
+                  </div>
                </div>
             </div>
           </div>
