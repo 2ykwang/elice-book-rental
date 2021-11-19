@@ -1,6 +1,7 @@
 from typing import Any, Union, List
 from datetime import datetime, timedelta
 from app.models import Book, Rental
+
 from app import db
 
 
@@ -44,7 +45,6 @@ class RentalService(object):
     def return_book(user_id: int, book_id: int) -> bool:
         rental = db.session.query(Rental).filter(
             (Rental.user_id == user_id) & (Rental.book_id == book_id) & (Rental.returned == False)).first()
-
         if rental is not None:
             rental.returned = True
             db.session.add(rental)

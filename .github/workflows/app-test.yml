@@ -1,0 +1,26 @@
+name: App Unittest
+
+on: 
+  push: 
+    branches: [ master, develop ] # master, develop 브랜치에서만 작동
+  pull_request: 
+    branches: [ master ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install pipenv # pipenv 없을 경우
+        run: pip install pipenv
+      - name: Install package # pipenv 패키지 설치
+        run:  |
+          pipenv install
+          pipenv install --dev
+      - name: Run tests # 테스트 실행
+        run: pipenv run python -m unittest
