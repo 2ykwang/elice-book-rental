@@ -3,7 +3,7 @@ from . import main
 from flask import render_template, request, current_app
 
 from app.services import BookService 
-from app.util import get_stars_count 
+from app.utility import get_stars_count 
 
 @main.route("/")
 def index():
