@@ -1,6 +1,7 @@
 import unittest
+
 from app import create_app, db
-from app.models import User, Rental
+from app.services import BookService
 from fake import make_fake_book, make_fake_user, make_review
 
 
@@ -22,7 +23,7 @@ class TestBook(unittest.TestCase):
         book = make_fake_book()
         book.stock = 10
         EXPECTED = None
-        ANSWER = book.get_score()["score"]
+        ANSWER = BookService.get_score(book.id)
 
         self.assertEqual(EXPECTED, ANSWER)
 
@@ -49,7 +50,7 @@ class TestBook(unittest.TestCase):
 
         # 점수 평균
         EXPECTED = (10+8+6)/3
-        ANSWER = book.get_score()["score"]
+        ANSWER = BookService.get_score(book.id)["score"]
 
         self.assertEqual(EXPECTED, ANSWER)
 
@@ -61,12 +62,12 @@ class TestBook(unittest.TestCase):
         db.session.add(book)
         db.session.commit()
 
-        book.decrease_stock(3)
+        BookService.decrease_stock(book.id, 3)
 
         EXPECTED = 7
         self.assertEqual(EXPECTED, book.stock)
 
-        book.increase_stock(5)
+        BookService.increase_stock(book.id, 5)
 
         EXPECTED = 12
         self.assertEqual(EXPECTED, book.stock)
