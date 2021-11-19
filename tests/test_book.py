@@ -2,7 +2,7 @@ import unittest
 
 from app import create_app, db
 from app.services import BookService
-from fake import make_fake_book, make_fake_user, make_review
+from .fake import make_fake_book, make_fake_user, make_review
 
 
 class TestBook(unittest.TestCase):

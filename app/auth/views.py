@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, current_user
 
 from . import auth
 from .forms import RegisterForm, LoginForm 
-from app.validation import password_valid_check
+from app.utility import password_valid_check
 from app.services.user import UserService 
 
 

@@ -102,6 +102,12 @@ img {
     color: #fbc634 !important
 }
 
+.rating-color-text {
+    color: var(--default-typo-black) !important;
+    font-weight:400;
+    font-size:15px;
+}
+
 .review-count {
     font-weight: 400;
     margin-bottom: 2px;

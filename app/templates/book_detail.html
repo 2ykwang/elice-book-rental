@@ -23,6 +23,7 @@
                             <div class="card-subtitle mb-2 small-ratings">
                             {% if score %}
                                 {{rating.print_rating(get_stars_count(score["score"]))}}
+                                <span class="rating-color-text">({{score["score"]|int}} 점)</span>
                             {% else %}
                                 {{rating.print_rating(get_stars_count(0))}}
                             {% endif %}

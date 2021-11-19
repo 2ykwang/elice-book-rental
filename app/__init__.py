@@ -18,7 +18,7 @@ def create_app(config_name):
     login_manager.login_view = 'auth.login'
     
     # jinja date format
-    from .jinja_datetime import format_datetime
+    from .utility import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
     
     # blueprint
