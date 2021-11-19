@@ -3,7 +3,7 @@ from flask.helpers import url_for
 from . import main
 
 from flask import render_template, request, current_app, abort, redirect, flash
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 from app.services import BookService, RentalService, UserService
 from app.utility import get_stars_count, format_datetime
@@ -41,8 +41,9 @@ def book_detail(id):
 
 
 @main.route("/book/<int:id>/rent", methods=["POST"])
+@login_required
 def book_rent(id):
-    request.form.get("book_id")
+    id = request.form.get("book_id")
 
     # 올바른 요청인지 체크
     book = BookService.get_book_by_id(id)
@@ -69,11 +70,13 @@ def book_rent(id):
 
 
 @main.route("/book/<int:id>/return", methods=["POST"])
+@login_required
 def book_return(id):
     return ""
 
 
 @main.route("/book/<int:id>/review", methods=["POST"])
+@login_required
 def book_review(id):
     # 올바른 책 번호 인지 체크
     # 책을 빌린적이 있는지.

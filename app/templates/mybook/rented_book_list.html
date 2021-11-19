@@ -10,31 +10,48 @@
         <button type="button" class="btn btn-md btn-main">인기순</button> 
         <button type="button" class="btn btn-md btn-main">출판순</button> 
       </div>-->
-      <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">  
-      {% for book in book_list %}
-        <div class="col">
-          <div class="card book-card shadow-sm h-100">
-            <a href="{{url_for('main.book_detail', id=book.id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= book.image_url) }}" focusable="false"> </img></a>
+      <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
+      {% if book_list %}
+        {% for book in book_list %}
+          <div class="col">
+            <div class="card book-card shadow-sm h-100">
+              <a href="{{url_for('main.book_detail', id=book.id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= book.image_url) }}" focusable="false"> </img></a>
 
-            <div class="card-body">
-              <h5 class="card-title book-title" alt ="{{ book.book_name }}"><a class="card-link" href="{{url_for('main.book_detail', id=book.id)}}">{{ book.book_name }}</a></h5>
+              <div class="card-body">
+                <h5 class="card-title book-title" alt ="{{ book.book_name }}"><a class="card-link" href="{{url_for('main.book_detail', id=book.id)}}">{{ book.book_name }}</a></h5>
 
-                <div class="row align-items-center">
-                  <div class="col col-7"> 
-                    <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
-                  </div>  
-                  <div class="col me-auto text-end"> 
-                   <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">{{book.created}}</h6> 
-                  </div>   
-               </div>
- 
-                <div class="row align-items-center"> 
-                  <a href="{{url_for('main.book_return', id=book.id)}}"><button type="button" class="btn btn-md btn-main w-100">반납하기</button></a>  
-               </div>
+                  <div class="row align-items-center">
+                    <div class="col col-7"> 
+                      <h6 class="card-subtitle mb-2 text-muted">{{book.author}}</h6>
+                    </div>  
+                    <div class="col me-auto text-end"> 
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">{{book.created}}</h6> 
+                    </div>   
+                </div>
+  
+                  <div class="row align-items-center"> 
+                    <a href="{{url_for('main.book_return', id=book.id)}}"><button type="button" class="btn btn-md btn-main w-100">반납하기</button></a>  
+                </div>
+              </div>
             </div>
+          </div> 
+        {% endfor %}
+      {% else %} 
+        <div class="container" > 
+          <div class="card">
+            <div class="card-header">
+              이런
+            </div>
+          <div class="card-body w-80" >
+            <div class="row align-items-center" style="height:200px;"> 
+            <h1 class="card-title my-auto text-center">텅..</h1> 
+            </div>
+            <p class="card-text"></p>
+            <a href="{{url_for('main.index')}}" class="btn btn-main">책 빌리러가기</a>
           </div>
-        </div> 
-      {% endfor %} 
+        </div>
+      </div> 
+      {% endif%}
       </div>
     </div>
   </div>
