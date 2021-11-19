@@ -12,15 +12,16 @@ from app.utility import get_stars_count, format_datetime
 @mybook.route("/")
 @login_required
 def rented_books():
-    rented_books = RentalService.get_rented_books(current_user.id)
+    rented_books = RentalService.get_rental_and_books(current_user.id)
 
     return render_template("mybook/rented_book_list.html",
-                           book_list=rented_books,
-                           get_stars_count=get_stars_count,
-                           get_score=BookService.get_score)
+                           items=rented_books)
 
 
 @mybook.route("/history")
 @login_required
 def rented_books_history():
-    return "test"
+    rented_books = RentalService.get_rental_and_books(current_user.id, True)
+
+    return render_template("mybook/rented_book_history.html", 
+                           items=rented_books)

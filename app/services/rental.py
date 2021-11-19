@@ -1,5 +1,6 @@
-from typing import Any, Union, List
+from typing import Any, Union, List, Tuple
 from datetime import datetime, timedelta
+from sqlalchemy import desc
 from app.models import Book, Rental
 from app.utility import korea_datetime
 
@@ -8,26 +9,26 @@ from app import db
 
 class RentalService(object):
 
-    @staticmethod
-    def get_rental_records_by_userid(user_id: int, include_returned: bool = False) -> Union[List[Rental], None]:
-        if include_returned:
-            records = db.session.query(Rental).filter(
-                Rental.user_id == user_id).all()
-        else:
-            records = db.session.query(Rental).filter(
-                (Rental.user_id == user_id) & (Rental.returned == False)).all()
+    # @staticmethod
+    # def get_rental_records_by_userid(user_id: int, include_returned: bool = False) -> Union[List[Rental], None]:
+    #     if include_returned:
+    #         records = db.session.query(Rental).filter(
+    #             Rental.user_id == user_id).all()
+    #     else:
+    #         records = db.session.query(Rental).filter(
+    #             (Rental.user_id == user_id) & (Rental.returned == False)).all()
 
-        return records if len(records) > 0 else None
+    #     return records if len(records) > 0 else None
 
     @staticmethod
-    def get_rented_books(user_id: int, include_returned: bool = False) -> Union[List, None]:
+    def get_rental_and_books(user_id: int, include_returned: bool = False) -> Union[List[Tuple[Book, Rental]], None]:
+        joined_query = books = db.session.query(Book, Rental).join(Rental, Rental.book_id == Book.id)
+        
         if include_returned:
-            books = db.session.query(Book).outerjoin(
-                Rental, Rental.book_id == Book.id).filter((Rental.user_id == user_id)).all()
+            books = joined_query.filter((Rental.user_id == user_id)).order_by(desc(Rental.created)).all() 
         else:
-            books = db.session.query(Book).outerjoin(Rental, Rental.book_id == Book.id).filter(
-                (Rental.user_id == user_id) & (Rental.returned == False)).all()
-            
+            books = joined_query.filter((Rental.user_id == user_id) & (Rental.returned == False)).order_by(desc(Rental.created)).all()
+
         return books if len(books) > 0 else None
 
     @staticmethod
@@ -36,7 +37,7 @@ class RentalService(object):
         rental.user_id = user_id
         rental.book_id = book_id
         rental.returned = False
-        rental.return_date = korea_datetime() + timedelta(days=period)
+        rental.duration = korea_datetime() + timedelta(days=period)
 
         db.session.add(rental)
         db.session.commit()

@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}내가 빌린 목록{% endblock %}
+{% block title %}내가 빌렸던 책들{% endblock %}
 
 {% block content %}
 
@@ -30,13 +30,13 @@
                 </div>
                   <div class="row align-items-center">
                     <div class="col me-auto text-end"> 
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납 기한: {{item.Rental.duration | datetime}}</h6>
+                    {% if item.Rental.return_date %}
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납한 날짜: {{item.Rental.return_date | datetime}}</h6>
+                    {% else %}
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">읽는 중..</h6>
+                    {% endif %}
                     </div>
-                </div>
-  
-                  <div class="row align-items-center"> 
-                    <a href="{{url_for('main.book_return', id=item.Book.id)}}"><button type="button" class="btn btn-md btn-main w-100">반납하기</button></a>  
-                </div>
+                </div> 
               </div>
             </div>
           </div> 

@@ -17,7 +17,7 @@ class TestBook(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_get_rented_books(self) -> None:
+    def test_get_rental_and_books(self) -> None:
         user = make_fake_user()
         book = make_fake_book()
         book2 = make_fake_book()
@@ -29,10 +29,10 @@ class TestBook(unittest.TestCase):
         RentalService.add_rental(user.id, book2.id, 7)
         RentalService.return_book(user.id, book.id)
         
-        target = RentalService.get_rented_books(user.id)[0]
+        target = RentalService.get_rental_and_books(user.id)[0]
 
         EXPECTED = book2.book_name
-        ANSWER = target.book_name
+        ANSWER = target.Book.book_name
         self.assertEqual(EXPECTED, ANSWER)
 
     def test_book_return_expected_true(self) -> None:
