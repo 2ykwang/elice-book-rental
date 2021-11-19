@@ -1,4 +1,4 @@
-from typing import Dict, Union, Tuple 
+from typing import Dict, Union, Tuple
 from enum import unique
 
 from app import db, login_manager
@@ -50,6 +50,7 @@ class User(UserMixin, db.Model):
         self.email = email
         self.password_hash = password_hash
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -63,12 +64,9 @@ class Rental(db.Model):
     returned = db.Column(db.Boolean, nullable=False)
     created = db.Column(db.DateTime, default=korea_datetime)
     return_date = db.Column(db.DateTime)
+    duration = db.Column(db.DateTime)
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-    def set_period(self, days: int = 7):
-        """책 대여 기간을 설정합니다."""
-        self.return_date = korea_datetime() + timedelta(days=days)
 
 
 class Review(db.Model):

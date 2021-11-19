@@ -65,7 +65,7 @@ def book_rent(id):
     BookService.decrease_stock(book.id)
 
     flash(f"{book.book_name} 책을 빌리셨습니다.", 'primary')
-    flash(f"반드시 {format_datetime(rental.return_date)} 까지 반납해주세요!")
+    flash(f"반드시 {format_datetime(rental.duration)} 까지 반납해주세요!")
     return redirect(url_for('main.book_detail', id=id))
 
 
