@@ -15,6 +15,7 @@ flask-login = "*"
 email-validator = "*"
 pymysql = "*"
 update = "*"
+pytz = "*"
 
 [dev-packages]
 requests = "*"

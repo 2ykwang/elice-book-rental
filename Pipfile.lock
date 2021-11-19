@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "96771803f9bfdde06efb9d312985ef9da4ef45128e479496c7e605eb0fdb9d9a"
+            "sha256": "1130dcbca20cfc91d029c8f01bdf5ba28f98a2b2967d106058cb3d85996fd667"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -251,13 +251,21 @@
             "index": "pypi",
             "version": "==0.19.2"
         },
+        "pytz": {
+            "hashes": [
+                "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c",
+                "sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"
+            ],
+            "index": "pypi",
+            "version": "==2021.3"
+        },
         "setuptools": {
             "hashes": [
-                "sha256:94ee891f4759150cded601a6beb6b08400413aefd0267b692f3f8c6e0bb238e7",
-                "sha256:fb537610c2dfe77b5896e3ee53dd53fbdd9adc48076c8f28cee3a30fb59a5038"
+                "sha256:157d21de9d055ab9e8ea3186d91e7f4f865e11f42deafa952d90842671fc2576",
+                "sha256:4adde3d1e1c89bde1c643c64d89cdd94cbfd8c75252ee459d4500bccb9c7d05d"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==59.1.1"
+            "version": "==59.2.0"
         },
         "sqlalchemy": {
             "hashes": [
