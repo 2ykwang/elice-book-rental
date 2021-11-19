@@ -2,7 +2,7 @@ import unittest
 
 from app import create_app, db
 from app.services import BookService
-from .fake import make_fake_book, make_fake_user, make_review
+from fake import make_fake_book, make_fake_user, make_review
 
 
 class TestBook(unittest.TestCase):
@@ -27,9 +27,9 @@ class TestBook(unittest.TestCase):
 
         self.assertEqual(EXPECTED, ANSWER)
 
-    def test_increase_views(self) -> None: 
+    def test_increase_views(self) -> None:
         book = make_fake_book()
-        book.viewer = 10 
+        book.viewer = 10
         db.session.add(book)
         db.session.commit()
 
@@ -38,7 +38,7 @@ class TestBook(unittest.TestCase):
         BookService.increase_viewer(book.id)
         EXPECTED = 13
         self.assertEqual(EXPECTED, book.viewer)
-        
+
     def test_get_score(self) -> None:
         # 더미 데이터 생성
         user1 = make_fake_user()

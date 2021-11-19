@@ -40,7 +40,7 @@
  
                     <div class="row align-items-center">
                     <div class="col col-8"> 
-                        <button type="button" class="btn btn-md btn-main">대여하기</button> 
+                        <button type="button" class="btn btn-md btn-main" data-bs-toggle="modal" data-bs-target="#rentalModal">대여하기</button> 
                     </div> 
                     <div class="col me-auto text-end"> 
                         <!-- 남은 책 -->
@@ -50,7 +50,30 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
+
+<div class="modal fade" id="rentalModal" tabindex="-1" aria-labelledby="rentalModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rentalModalLabel">책을 대여하시겠습니까?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        "<strong>{{book.book_name}}</strong>" 
+        <p>책을 대여하시겠습니까? 한번 더 확인해주세요.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요.</button> 
+
+        <form method="POST" action="{{url_for("main.book_rent",id=book.id)}}">   
+            <input type="hidden" name="book_id" id="book_id" value="{{book.id}}">
+            <button type="submit" class="btn btn-primary">빌릴게요</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="card preview-card mt-3">
     <div class="container-fliud">
