@@ -32,6 +32,7 @@ pylint-flask-sqlalchemy==0.2.0
 pylint-plugin-utils==0.6
 PyMySQL==1.0.2
 python-dotenv==0.19.2
+pytz==2021.3
 requests==2.26.0
 SQLAlchemy==1.4.27
 style==1.1.0

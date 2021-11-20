@@ -17,4 +17,6 @@
 - pagination
   [https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/](https://flask-sqlalchemy.palletsprojects.com/en/2.x/api/)
 - 어플리케이션 컨텍스트
-- [https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html](https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html)
+  [https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html](https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html)
+- flask SQLAlchemy ORM 사용해보기
+  [https://lowelllll.github.io/til/2019/04/19/TIL-flask-sqlalchemy-orm/](https://lowelllll.github.io/til/2019/04/19/TIL-flask-sqlalchemy-orm/)

@@ -1,4 +1,5 @@
 from app.models import User, Book, Review
+from app.utility import korea_datetime
 import random
 import string
 import datetime
@@ -23,7 +24,7 @@ def make_fake_book() -> Book:
     book.book_name = __random_string(5)
     book.publisher = __random_string(5)
     book.author = __random_string(5)
-    book.publication_date = datetime.datetime.utcnow()
+    book.publication_date = korea_datetime()
     book.pages = random.randrange(100, 300)
     book.isbn = __random_string(5)
     book.description = __random_string(5)

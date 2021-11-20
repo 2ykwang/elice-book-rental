@@ -12,6 +12,7 @@
 - [엘리스 3기 도서관 대출 서비스 프로젝트](#엘리스-3기-도서관-대출-서비스-프로젝트)
   - [TOC](#toc)
   - [사용 스택](#사용-스택)
+  - [디렉터리 구조](#디렉터리-구조)
   - [설치](#설치)
     - [환경변수](#환경변수)
   - [배포](#배포)
@@ -30,6 +31,38 @@
 |  데이터 베이스   |    MySQL, SQLite (Test)     |
 |    프론트엔드    |     JavaScript, jQuery      |
 |      백엔드      | Flask, Gunicorn, SQLAlchemy |
+
+<br>
+
+## 디렉터리 구조
+
+```zsh
+root
+├── app
+│   ├── auth # -> auth view
+│   ├── main # -> main view
+│   ├── mybook #-> mybook view
+│   ├── models # -> db crud 로직 구현 코드
+│   ├── services # -> 비즈니스로직 구현 코드
+│   ├── static
+│   │   ├── css
+│   │   ├── images
+│   │   ├── js
+│   │   └── media
+│   ├── templates
+│   │   ├── auth # -> 로그인, 가입 템플릿
+│   │   ├── errors # -> 404,500, ... 에러 페이지 템플릿
+│   │   ├── layout # -> 웹 레이아웃
+│   │   ├── macro # -> 자주 사용하는 진자 템플릿 함수
+│   │   └── mybook # -> 대여기록, 대여한책
+│   └── utility # -> helper 함수
+├── docs
+│   └── resource
+│       └── book_image_resource
+├── tests # -> 테스트 코드
+└── utility
+
+```
 
 <br>
 

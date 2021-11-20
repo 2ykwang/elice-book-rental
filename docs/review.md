@@ -13,6 +13,12 @@
 - pymysql 패키지를 추가했다. Production 환경에서 mysql 을 사용할 예정이다.
 - 가입 / 로그인 기능을 구현하였다.
 - gunicorn config 파일에서 worker 옵션을 시스템 최대치에서 기본값으로 변경하였다.
-heroku 기본 플랜에서 db connection 이 한계치를 넘어 오류가나는 거 같다.
+  heroku 기본 플랜에서 db connection 이 한계치를 넘어 오류가나는 거 같다.
 - 비밀번호 유효성 함수를 추가하고 테스트케이스를 작성하였다.
 - 모바일 환경을 고려해 웹 레이아웃을 수정하였다. (네비, 상세페이지, 메인 페이지)
+
+## 2021-11-19
+
+- flash 했을 때 bootstrap modal 창이 팝업되도록 하였다. flash 구현 코드는 `layout.html` 에 넣어 전역에서 사용할 수 있도록 하였음.
+- model과 view 로직 사이에 service 로직을 넣었다.service 에서 model을 이용한 로직을 구현하고 view는 그저 사용하면된다.
+- utility 메소드를 패키지로 분리하였음.

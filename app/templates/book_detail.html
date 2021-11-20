@@ -37,15 +37,15 @@
                     <p class="book-detail-header"><strong>출간일: </strong>{{book.publication_date | datetime()}}</p> 
                     <p class="book-detail-header"><strong>페이지: </strong>{{book.pages}}</p> 
                     <p class="book-detail-header"><strong>ISBN: </strong>{{book.isbn}}</p>  
- 
-                    <div class="row align-items-center">
-                    <div class="col col-8"> 
-                        <button type="button" class="btn btn-md btn-main" data-bs-toggle="modal" data-bs-target="#rentalModal">대여하기</button> 
-                    </div> 
-                    <div class="col me-auto text-end"> 
-                        <!-- 남은 책 -->
-                        <small class="text-muted">{{book.stock}} 권 남음</small>
-                    </div>
+  
+                    <div class="row"> 
+                        <div class ="col-6">
+                            <button type="button" class="btn btn-md btn-main" data-bs-toggle="modal" data-bs-target="#rentalModal">대여하기</button> 
+                        </div>
+                        <div class ="col-6 text-end"> 
+                            <small class="text-muted">{{book.stock}} 권 남음</small> 
+                        </div> 
+                    </div>  
                 </div>
             </div>
         </div>
@@ -74,12 +74,13 @@
     </div>
   </div>
 </div>
-
-<div class="card preview-card mt-3">
-    <div class="container-fliud">
-        <div class="wrapper row ">
- 
-        </div>
+<div class="container p-2">
+    <div class="card preview-card mt-3">
+        <div class="container-fliud">
+            <div class="wrapper row"> 
+            </div>
+        </div> 
     </div> 
 </div>
+ 
 {% endblock %}
