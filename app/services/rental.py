@@ -72,6 +72,7 @@ class RentalService(object):
             (Rental.user_id == user_id) & (Rental.book_id == book_id) & (Rental.returned == False)).first()
         if rental is not None:
             rental.returned = True
+            rental.return_date = korea_datetime()
             db.session.add(rental)
             db.session.commit()
             return True

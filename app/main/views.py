@@ -72,7 +72,26 @@ def book_rent(id):
 @main.route("/book/<int:id>/return", methods=["POST"])
 @login_required
 def book_return(id):
-    return ""
+    book_id = request.form.get("book_id", type=int)
+    # 데이터 자료형이 올바른지 검증
+    if int(book_id) != book_id:
+        flash("올바른 값을 전달해주세요.")
+        return redirect(url_for('mybook.rented_books'))
+
+    # 존재하는 책인지 검증
+    if BookService.get_book_by_id(id) is None:
+        abort(404)
+
+    # 이 사람이 빌린 책인지 검증
+    if RentalService.is_user_rented_book(current_user.id, book_id) == False:
+        flash("잘못된 요청 입니다.")
+        return redirect(url_for('mybook.rented_books'))
+
+    RentalService.return_book(current_user.id, id)
+    BookService.increase_stock(id)
+
+    flash(f"책을 반납해주셔서 감사합니다.")
+    return redirect(url_for('mybook.rented_books'))
 
 
 @main.route("/book/<int:id>/review", methods=["POST"])

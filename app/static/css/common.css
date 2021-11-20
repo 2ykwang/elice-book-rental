@@ -91,6 +91,12 @@ img {
     font-weight: 600;
     height: 30px;
 }
+.book-author {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:100%;
+}
 
 .ratings {
     margin-right: 10px

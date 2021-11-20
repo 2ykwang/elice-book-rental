@@ -22,7 +22,7 @@
 
                   <div class="row align-items-center">
                     <div class="col col-5"> 
-                      <h6 class="card-subtitle mb-2 text-muted">{{item.author}}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted book-author">{{item.author}}</h6>
                     </div>  
                     <div class="col me-auto text-end"> 
                     <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.created | datetime}}</h6> 
@@ -35,7 +35,7 @@
                 </div>
   
                   <div class="row align-items-center"> 
-                    <a href="{{url_for('main.book_return', id=item.book_id)}}"><button type="button" class="btn btn-md btn-main w-100">반납하기</button></a>  
+                    <button type="button" onclick="returnBookClickHandler(event)" data-book-id="{{item.book_id}}" class="btn btn-md btn-main">반납하기</button>
                 </div>
               </div>
             </div>
