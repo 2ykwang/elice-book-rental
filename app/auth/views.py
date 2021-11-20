@@ -28,6 +28,7 @@ def register():
 
             if not password_valid_check(password):
                 flash(f"비밀번호 형식이 잘못되었습니다. 안전한 비밀번호를 입력해주세요.")
+                flash(f"특수문자,영어 소문자 대문자, 숫자를 포함하여 작성해주세요!")
                 return render_template('auth/register.html', form=register_form)
 
             # 이메일 체크
