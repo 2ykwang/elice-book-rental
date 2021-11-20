@@ -12,16 +12,27 @@ from app.utility import get_stars_count, format_datetime
 @mybook.route("/")
 @login_required
 def rented_books():
-    rented_books = RentalService.get_rental_and_books(current_user.id)
+    page = request.args.get("page", default=1, type=int)
+    book_per_page = current_app.config["BOOK_PER_PAGE"]
 
+    pagination = RentalService.get_rental_and_books_paginate(current_user.id, page, book_per_page)
+    books = pagination.items
+    
     return render_template("mybook/rented_book_list.html",
-                           items=rented_books)
-
+                           items=books,
+                           pagination=pagination,
+                           enumerate=enumerate) 
 
 @mybook.route("/history")
 @login_required
 def rented_books_history():
-    rented_books = RentalService.get_rental_and_books(current_user.id, True)
+    page = request.args.get("page", default=1, type=int)
+    book_per_page = current_app.config["BOOK_PER_PAGE"]
 
-    return render_template("mybook/rented_book_history.html", 
-                           items=rented_books)
+    pagination = RentalService.get_rental_and_books_paginate(current_user.id, page, book_per_page, True)
+    books = pagination.items
+    
+    return render_template("mybook/rented_book_history.html",
+                           items=books,
+                           pagination=pagination,
+                           enumerate=enumerate)

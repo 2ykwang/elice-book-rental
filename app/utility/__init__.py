@@ -12,3 +12,7 @@ def get_stars_count(score, max_score=10):
 
 def korea_datetime():
     return datetime.now(timezone('Asia/Seoul'))
+ 
+def dict_combine(t1: dict, t2: dict) -> dict:
+    t1.update(t2)
+    return t1
