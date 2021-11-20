@@ -16,6 +16,7 @@ email-validator = "*"
 pymysql = "*"
 update = "*"
 pytz = "*"
+flask-migrate = "*"
 
 [dev-packages]
 requests = "*"
