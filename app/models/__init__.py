@@ -10,7 +10,9 @@ from datetime import timedelta
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app.utility import format_datetime  
+from app.utility import format_datetime
+
+
 class Rental(db.Model):
     """사용자 책 대여 Model"""
     __tablename__ = 'rental'
@@ -34,6 +36,7 @@ class Rental(db.Model):
         }
         return result
 
+
 class Review(db.Model):
     """책 후기 Model"""
     __tablename__ = 'review'
@@ -45,14 +48,14 @@ class Review(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    def __init__(self, content: str = "", score: int = 0, book_id: int = None, user_id: int = None):
+    def __init__(self, user_id: int, book_id: int, content: str = "", score: int = 0):
         """리뷰 Model 객체 초기화
 
         Args:
+            user_id (int): user_id pk
+            book_id (int): book_id fk
             content (str, optional): 리뷰 내용. Defaults to "".
-            score (int, optional): 점수. Defaults to 0.
-            book_id (int, optional): user_id fk. Defaults to None.
-            user_id (int, optional): book_id fk. Defaults to None.
+            score (int, optional): 리뷰 점수. Defaults to 0.
         """
         self.content = content
         self.score = score
@@ -60,7 +63,7 @@ class Review(db.Model):
         self.user_id = user_id
 
     def to_dict(self):
-        result = { 
+        result = {
             "content": self.content,
             "score": self.score,
             "created": self.created,
@@ -68,6 +71,7 @@ class Review(db.Model):
             "user_id": self.user_id,
         }
         return result
+
 
 class Book(db.Model):
     """책 Model"""
@@ -136,14 +140,14 @@ class User(UserMixin, db.Model):
 
     def to_dict(self):
         a = self
-        
-        result = { 
+
+        result = {
             "name": self.name,
             "email": self.email,
             "created": self.created,
             "last_login": self.last_login,
-            "rental_count": len(self.rental), 
-            "review_count": len(self.review), 
+            "rental_count": len(self.rental),
+            "review_count": len(self.review),
         }
         return result
 
