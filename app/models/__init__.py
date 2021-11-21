@@ -47,8 +47,9 @@ class Review(db.Model):
     created = db.Column(db.DateTime, default=korea_datetime)
     book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_name = db.Column(db.String(30), default="", nullable=True)
 
-    def __init__(self, user_id: int, book_id: int, content: str = "", score: int = 0):
+    def __init__(self, user_id: int, book_id: int, name: str, content: str = "", score: int = 0):
         """리뷰 Model 객체 초기화
 
         Args:
@@ -61,7 +62,8 @@ class Review(db.Model):
         self.score = score
         self.book_id = book_id
         self.user_id = user_id
-
+        self.user_name = name
+        
     def to_dict(self):
         result = {
             "content": self.content,

@@ -1,6 +1,10 @@
 @import url(//font.elice.io/EliceDigitalBaeum.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1200px;
+}
+
 :root {
     --main-color: #564BBE;
     --default-typo-white: #fefefe;
@@ -51,6 +55,9 @@ img {
     max-width: 100%;
 }
 
+.text-main {
+    color: var(--main-color);
+}
 
 
 /* 북 리스트 */
@@ -165,6 +172,7 @@ img {
 }
 
 .preview-card {
+    max-width: 1200px;  
     padding: 3em;
     line-height: 1.5em;
 }
@@ -194,3 +202,41 @@ img {
     margin: auto;
 
 }
+.comments {  
+    margin: auto;
+    width:100%; 
+}
+.comments>.card{
+    border:0;
+
+}
+.comment-card-name{
+    font-size: 1.1rem;
+    font-weight: 600;
+}  
+.comment-card {
+    max-width: 1200px;  
+    padding: 3em;
+    line-height: 1.5em;
+}
+
+.comment-box {
+    max-width: 1200px;  
+    background-color: var(--point-font);
+    min-height: 130px;
+    width:100%; 
+    margin: auto;
+} 
+.comment-box-rating { 
+    min-width:140px;
+    max-width: 200px;  
+    border:0;
+    outline:0;
+} 
+.comment-box-form>input{
+    border: 0;
+}
+.comment-box-form>label{
+    height:200 px;
+    color:var(--default-typo-black);
+} 
