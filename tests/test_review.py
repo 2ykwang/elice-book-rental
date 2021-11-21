@@ -34,11 +34,14 @@ class TestReview(unittest.TestCase):
         db.session.commit()
 
         # book 1
-        ReviewService.add_review(user1.id, book1.id, "재미있어요", 10)
-        ReviewService.add_review(user2.id, book1.id, "별로네요", 5)
+        ReviewService.add_review(
+            user1.id, book1.id, user1.name, "재미있어요", 10)
+        ReviewService.add_review(
+            user2.id, book1.id, user2.name, "별로네요", 5)
 
         # book 2
-        ReviewService.add_review(user3.id, book2.id, "괜찮아요.", 9)
+        ReviewService.add_review(
+            user3.id, book2.id, user3.name, "괜찮아요.", 9)
 
         count_query = db.session.query(func.count(Review.id))
 
@@ -68,7 +71,8 @@ class TestReview(unittest.TestCase):
 
         # 리뷰 작성한것 체크
 
-        review = ReviewService.add_review(user1.id, book1.id, "좋아요.", 10)
+        review = ReviewService.add_review(
+            user1.id, book1.id, user1.name, "좋아요.", 10)
 
         EXPECTED = review
         ANSWER = ReviewService.get_written_review(user1.id, book1.id)
@@ -89,11 +93,14 @@ class TestReview(unittest.TestCase):
         db.session.commit()
 
         # book 1
-        review1 = ReviewService.add_review(user1.id, book1.id, "재미있어요", 10)
-        review2 = ReviewService.add_review(user2.id, book1.id, "별로네요", 5)
+        review1 = ReviewService.add_review(
+            user1.id, book1.id, user1.name, "재미있어요", 10)
+        review2 = ReviewService.add_review(
+            user2.id, book1.id, user2.name, "별로네요", 5)
 
         # book 2
-        review3 = ReviewService.add_review(user3.id, book2.id, "괜찮아요.", 9)
+        review3 = ReviewService.add_review(
+            user3.id, book2.id, user3.name, "괜찮아요.", 9)
 
         def check_sublist(small, big): return all(
             [item in big for item in small])

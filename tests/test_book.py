@@ -54,15 +54,15 @@ class TestBook(unittest.TestCase):
         # 후기 생성
 
         reviews = [
-            make_review(user1.id, book.id, "괜찮네요.", 10),
-            make_review(user2.id, book.id, "재미있었어요!", 8),
-            make_review(user3.id, book.id, "전 별로였어요", 6),
+            make_review(user1.id, book.id, "Yeonggwang", "괜찮네요.", 5),
+            make_review(user2.id, book.id, "Yeonggwang", "재미있었어요!", 4),
+            make_review(user3.id, book.id, "Yeonggwang", "전 별로였어요", 1),
         ]
         db.session.add_all(reviews)
         db.session.commit()
 
         # 점수 평균
-        EXPECTED = (10+8+6)/3
+        EXPECTED = sum([review.score for review in reviews])/len(reviews)
         ANSWER = BookService.get_score(book.id)["score"]
 
         self.assertEqual(EXPECTED, ANSWER)

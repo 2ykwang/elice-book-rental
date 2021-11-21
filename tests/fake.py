@@ -10,8 +10,8 @@ def make_user(name: str, email: str, password: str) -> User:
     return user
 
 
-def make_review(user_id: int, book_id: int, content: str, score: int) -> Review:
-    review = Review(user_id, book_id, content, score)
+def make_review(user_id: int, book_id: int, name: str, content: str, score: int) -> Review:
+    review = Review(user_id, book_id, name, content, score)
     return review
 
 
