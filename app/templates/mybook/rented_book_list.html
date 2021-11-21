@@ -25,12 +25,12 @@
                       <h6 class="card-subtitle mb-2 text-muted book-author">{{item.author}}</h6>
                     </div>  
                     <div class="col me-auto text-end"> 
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.created | datetime}}</h6> 
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.created | format_datetime}}</h6> 
                     </div>   
                 </div>
                   <div class="row align-items-center">
                     <div class="col me-auto text-end"> 
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납 기한: {{item.duration | datetime}}</h6>
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납 기한: {{item.duration | format_datetime}}</h6>
                     </div>
                 </div>
   

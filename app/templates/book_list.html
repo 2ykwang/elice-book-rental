@@ -33,11 +33,11 @@
               {% set score = get_score(book.id) %}
               {% if score %} 
               <div class="small-ratings">
-                {{rating.print_rating(get_stars_count(score["score"]))}}({{score["count"]}})
+                {{rating.print_rating(score["score"])}}<small class="text-muted">({{score["count"]}})</small>
               </div>
               {% else %}
               <div class="small-ratings">
-                {{rating.print_rating(get_stars_count(0))}}
+                {{rating.print_rating(0)}}
               </div>
               {% endif %}
               </div>
