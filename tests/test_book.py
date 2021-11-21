@@ -54,9 +54,9 @@ class TestBook(unittest.TestCase):
         # 후기 생성
 
         reviews = [
-            make_review("괜찮네요.", 10, book.id, user1.id),
-            make_review("재미있었어요!", 8, book.id, user2.id),
-            make_review("전 별로였어요", 6, book.id, user3.id),
+            make_review(user1.id, book.id, "괜찮네요.", 10),
+            make_review(user2.id, book.id, "재미있었어요!", 8),
+            make_review(user3.id, book.id, "전 별로였어요", 6),
         ]
         db.session.add_all(reviews)
         db.session.commit()
