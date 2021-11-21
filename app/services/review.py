@@ -1,7 +1,6 @@
-from typing import Any, Union, List, Tuple
-from sqlalchemy import desc
-from app.models import Book, Rental, Review, User
-from app.utility import korea_datetime, dict_combine
+from typing import Union, List
+from sqlalchemy import asc, desc
+from app.models import Review
 
 from app import db
 
@@ -9,13 +8,13 @@ from app import db
 class ReviewService(object):
 
     @staticmethod
-    def add_review(user_id: int, book_id: int, content: str, score: int) -> Review:
+    def add_review(user_id: int, book_id: int, name: str, content: str, score: int) -> Review:
 
-        review = Review(user_id, book_id, content, score)
+        review = Review(user_id, book_id, name, content, score)
 
         db.session.add(review)
-        db.session.commit() 
-        
+        db.session.commit()
+
         return review
 
     @staticmethod
@@ -23,7 +22,7 @@ class ReviewService(object):
 
         review = db.session.query(Review).filter(
             (Review.user_id == user_id) & (Review.book_id == book_id)).first()
-        
+
         return review
 
     @staticmethod
@@ -31,14 +30,14 @@ class ReviewService(object):
 
         review = db.session.query(Review).filter(
             (Review.user_id == user_id) & (Review.book_id == book_id)).all()
-        
+
         return review
 
     @staticmethod
-    def get_reviews_by_bookid(book_id: int) -> List[Review]:
+    def get_reviews_by_bookid(book_id: int, order_by_date=True) -> List[Review]:
 
         reviews = db.session.query(Review).filter(
             Review.book_id == book_id
-        ).all()
+        ).order_by(desc(Review.created)).all()
 
         return reviews
