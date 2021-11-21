@@ -2,11 +2,12 @@ from flask.helpers import url_for
 
 from . import main
 
-from flask import render_template, request, current_app, abort, redirect, flash
+from flask import render_template, request, current_app, redirect, flash
 from flask_login import current_user, login_required
 
-from app.services import BookService, RentalService, UserService
-from app.utility import get_stars_count, format_datetime
+from app.services import BookService, RentalService, ReviewService
+from app.utility import format_datetime
+from app.decorator import is_exists_book
 
 
 @main.route("/")
@@ -20,36 +21,30 @@ def index():
     return render_template("book_list.html",
                            book_list=books,
                            pagination=pagination,
-                           enumerate=enumerate,
-                           get_stars_count=get_stars_count,
+                           enumerate=enumerate, 
                            get_score=BookService.get_score)
 
 
 @main.route("/book/<int:id>")
+@is_exists_book(redirect_endpoint='main.index')
 def book_detail(id):
+
     book = BookService.get_book_by_id(id)
-
-    if book is None:
-        abort(404)
-
     BookService.increase_viewer(book.id)
 
+    reviews = ReviewService.get_reviews_by_bookid(book.id)
+
     return render_template("book_detail.html",
-                           book=book,
-                           get_stars_count=get_stars_count,
-                           get_score=BookService.get_score)
+                           book=book, 
+                           get_score=BookService.get_score,
+                           reviews=reviews)
 
 
 @main.route("/book/<int:id>/rent", methods=["POST"])
 @login_required
+@is_exists_book()
 def book_rent(id):
-    id = request.form.get("book_id")
-
-    # 올바른 요청인지 체크
     book = BookService.get_book_by_id(id)
-    # 존재하지 않는 책 대여 시도
-    if book is None:
-        abort(404)
     # 재고가 없을 경우
     if book.stock < 1:
         flash("현재 빌릴 수 있는 재고가 없습니다. 죄송합니다.")
@@ -71,19 +66,10 @@ def book_rent(id):
 
 @main.route("/book/<int:id>/return", methods=["POST"])
 @login_required
+@is_exists_book()
 def book_return(id):
-    book_id = request.form.get("book_id", type=int)
-    # 데이터 자료형이 올바른지 검증
-    if int(book_id) != book_id:
-        flash("올바른 값을 전달해주세요.")
-        return redirect(url_for('mybook.rented_books'))
-
-    # 존재하는 책인지 검증
-    if BookService.get_book_by_id(id) is None:
-        abort(404)
-
     # 이 사람이 빌린 책인지 검증
-    if RentalService.is_user_rented_book(current_user.id, book_id) == False:
+    if RentalService.is_user_rented_book(current_user.id, id) == False:
         flash("잘못된 요청 입니다.")
         return redirect(url_for('mybook.rented_books'))
 
@@ -96,7 +82,31 @@ def book_return(id):
 
 @main.route("/book/<int:id>/review", methods=["POST"])
 @login_required
+@is_exists_book()
 def book_review(id):
-    # 올바른 책 번호 인지 체크
-    # 책을 빌린적이 있는지.
-    return ""
+    content = request.form.get("content", type=str)
+    score = request.form.get("score", type=int)
+
+    # 점수가 숫자형식인지
+    if not type(score) == int:
+        flash("점수를 매겨주세요..!")
+        return redirect(url_for('main.book_detail', id=id))
+
+    # 1~5 범위인지
+    if score > 5 or score < 1:
+        flash("점수를 매겨주세요..!")
+        return redirect(url_for('main.book_detail', id=id))
+
+    # 빌렸던 적이 있는 책인지 ( 빌린사람만 리뷰를 쓸 수 있게 )
+    if not RentalService.is_user_rented_book(current_user.id, id, include_returned=True):
+        flash("책을 먼저 읽고 후기를 남겨주세요!")
+        return redirect(url_for('main.book_detail', id=id))
+
+        # 이미 작성한 리뷰가 있는지
+    if ReviewService.get_written_review(current_user.id, id):
+        flash("이미 작성한 리뷰가 있어요..!")
+        return redirect(url_for('main.book_detail', id=id))
+  
+    
+    ReviewService.add_review(current_user.id, id, current_user.name, content, score)
+    return redirect(url_for('main.book_detail', id=id))

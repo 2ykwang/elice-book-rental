@@ -6,7 +6,7 @@ from app.services import RentalService
 from tests import make_fake_book, make_fake_user
 
 
-class TestBook(unittest.TestCase):
+class TestRent(unittest.TestCase):
     def setUp(self) -> None:
         self.app = create_app('testing')
         self.app.app_context().push()

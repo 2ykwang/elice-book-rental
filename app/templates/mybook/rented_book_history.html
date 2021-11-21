@@ -25,13 +25,13 @@
                       <h6 class="card-subtitle mb-2 text-muted">{{item.author}}</h6>
                     </div>  
                     <div class="col me-auto text-end"> 
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.created | datetime}}</h6> 
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.created | format_datetime}}</h6> 
                     </div>   
                 </div>
                   <div class="row align-items-center">
                     <div class="col me-auto text-end"> 
                     {% if item.return_date %}
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납한 날짜: {{item.return_date | datetime}}</h6>
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납한 날짜: {{item.return_date | format_datetime}}</h6>
                     {% else %}
                     <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">읽는 중..</h6>
                     {% endif %}

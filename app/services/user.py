@@ -21,6 +21,11 @@ class UserService(object):
         return check_password_hash(user.password_hash, password)
     
     @staticmethod
+    def get_user_by_id(id: str) -> Union[User, None]:
+        user = db.session.query(User).filter(User.id == id).first()
+        return user
+    
+    @staticmethod
     def get_user_by_email(email: str) -> Union[User, None]:
         user = db.session.query(User).filter(User.email == email).first()
         return user

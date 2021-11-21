@@ -1,5 +1,7 @@
 # 참조
 
+- Bootstrap 5 document
+  [https://getbootstrap.com/docs/5.0/getting-started/introduction/](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 - Flask Configuration Handling
   [https://flask.palletsprojects.com/en/1.1.x/config/#development-production](https://flask.palletsprojects.com/en/1.1.x/config/#development-production)
 - Deployment Options
@@ -20,3 +22,7 @@
   [https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html](https://flask-docs-kr.readthedocs.io/ko/latest/appcontext.html)
 - flask SQLAlchemy ORM 사용해보기
   [https://lowelllll.github.io/til/2019/04/19/TIL-flask-sqlalchemy-orm/](https://lowelllll.github.io/til/2019/04/19/TIL-flask-sqlalchemy-orm/)
+- flask 뷰 데코레이터
+  [https://flask-docs-kr.readthedocs.io/ko/latest/patterns/viewdecorators.html](https://flask-docs-kr.readthedocs.io/ko/latest/patterns/viewdecorators.html)
+- flask 템플릿
+  [https://flask-docs-kr.readthedocs.io/ko/latest/templating.html](https://flask-docs-kr.readthedocs.io/ko/latest/templating.html)
