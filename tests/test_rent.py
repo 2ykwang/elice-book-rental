@@ -8,7 +8,7 @@ from tests import make_fake_book, make_fake_user
 
 class TestRent(unittest.TestCase):
     def setUp(self) -> None:
-        self.app = create_app('testing')
+        self.app = create_app("testing")
         self.app.app_context().push()
         db.drop_all()
         db.create_all()
@@ -28,7 +28,7 @@ class TestRent(unittest.TestCase):
         RentalService.add_rental(user.id, book.id, 7)
         RentalService.add_rental(user.id, book2.id, 7)
         RentalService.return_book(user.id, book.id)
-        
+
         target = RentalService.get_rental_and_books(user.id)[0]
 
         EXPECTED = book2.book_name
@@ -64,5 +64,5 @@ class TestRent(unittest.TestCase):
         self.assertEqual(EXPECTED, ANSWER)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

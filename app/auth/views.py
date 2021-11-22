@@ -1,10 +1,10 @@
-from flask import render_template, redirect, request, url_for, flash
-from flask_login import login_user, logout_user, current_user
+from app.services.user import UserService
+from app.utility import password_valid_check
+from flask import flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_user, logout_user
 
 from . import auth
-from .forms import RegisterForm, LoginForm
-from app.utility import password_valid_check
-from app.services.user import UserService
+from .forms import LoginForm, RegisterForm
 
 
 @auth.route("/", methods=["GET", "POST"])

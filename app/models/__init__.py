@@ -1,16 +1,12 @@
-from typing import Dict, Union, Tuple
+from datetime import timedelta
 from enum import unique
-
-from flask_sqlalchemy import BaseQuery
+from typing import Dict, Tuple, Union
 
 from app import db, login_manager
-from app.utility import korea_datetime
-from datetime import timedelta
-
+from app.utility import format_datetime, korea_datetime
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-
-from app.utility import format_datetime
+from flask_sqlalchemy import BaseQuery
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 class Rental(db.Model):

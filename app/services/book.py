@@ -1,8 +1,9 @@
-from typing import Union, Dict
+from typing import Dict, Union
+
+from app import db
+from app.models import Book, Review
 from flask_sqlalchemy import Pagination
 from sqlalchemy.sql import func
-from app.models import Book, Review
-from app import db
 
 
 class BookService(object):

@@ -1,9 +1,11 @@
 from functools import wraps
-from app.services import BookService
+
 from flask import abort, flash, redirect, url_for
 
+from app.services import BookService
 
-def is_exists_book(param='id', redirect_endpoint: str = ''):
+
+def is_exists_book(param="id", redirect_endpoint: str = ""):
     def decorator(func):
         @wraps(func)
         def decorated_function(*args, **kwargs):
@@ -21,5 +23,7 @@ def is_exists_book(param='id', redirect_endpoint: str = ''):
                     abort(404)
 
             return func(*args, **kwargs)
+
         return decorated_function
+
     return decorator

@@ -1,11 +1,9 @@
+from app.services import RentalService
+from flask import current_app, render_template, request
+from flask_login import current_user, login_required
 from flask_sqlalchemy import Pagination
 
 from . import mybook
-
-from flask import render_template, request, current_app
-from flask_login import current_user, login_required
-
-from app.services import RentalService
 
 
 @mybook.route("/")

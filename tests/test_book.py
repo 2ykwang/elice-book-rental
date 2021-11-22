@@ -8,7 +8,7 @@ from tests import make_fake_book, make_fake_user, make_review
 
 class TestBook(unittest.TestCase):
     def setUp(self) -> None:
-        self.app = create_app('testing')
+        self.app = create_app("testing")
         self.app.app_context().push()
         db.drop_all()
         db.create_all()
@@ -62,7 +62,7 @@ class TestBook(unittest.TestCase):
         db.session.commit()
 
         # 점수 평균
-        EXPECTED = sum([review.score for review in reviews])/len(reviews)
+        EXPECTED = sum([review.score for review in reviews]) / len(reviews)
         ANSWER = BookService.get_score(book.id)["score"]
 
         self.assertEqual(EXPECTED, ANSWER)
@@ -86,5 +86,5 @@ class TestBook(unittest.TestCase):
         self.assertEqual(EXPECTED, book.stock)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

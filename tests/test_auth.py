@@ -1,17 +1,16 @@
+# sleep function
+import time
 import unittest
-from app.utility import password_valid_check
 
 # 순환 참조 주의
 from app import create_app, db
 from app.services.user import UserService
-
-# sleep function
-import time
+from app.utility import password_valid_check
 
 
 class TestAuth(unittest.TestCase):
     def setUp(self) -> None:
-        self.app = create_app('testing')
+        self.app = create_app("testing")
         self.app.app_context().push()
         # db in
         db.drop_all()
@@ -23,7 +22,8 @@ class TestAuth(unittest.TestCase):
 
     def test_update_last_login_expected_different(self) -> None:
         user = UserService.add_user(
-            "Yeonggwang", "immutable000@gmail.com", "test!2345%")
+            "Yeonggwang", "immutable000@gmail.com", "test!2345%"
+        )
         before = user.last_login
 
         time.sleep(0.01)
@@ -40,7 +40,10 @@ class TestAuth(unittest.TestCase):
             {"expected": True, "test_value": "232$@SafetyPassword1$28#241"},
             {"expected": True, "test_value": "elicePASWord2!@#$"},
             {"expected": True, "test_value": "@#$qweFrtyy@43248@"},
-            {"expected": True, "test_value": "FEWHF*Hss@#*()H*)#@HF13()H@#(*)FH#@HJFOIH#FO@HIO"},
+            {
+                "expected": True,
+                "test_value": "FEWHF*Hss@#*()H*)#@HF13()H@#(*)FH#@HJFOIH#FO@HIO",
+            },
             {"expected": True, "test_value": "zzFzz)@#jj9j()(@J()E()"},
         ]
 
@@ -67,5 +70,5 @@ class TestAuth(unittest.TestCase):
             self.assertEqual(EXPECTED, ANSWER)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
