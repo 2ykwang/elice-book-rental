@@ -15,15 +15,16 @@ from app.utility import format_datetime
 
 class Rental(db.Model):
     """사용자 책 대여 Model"""
-    __tablename__ = 'rental'
+
+    __tablename__ = "rental"
 
     id = db.Column(db.Integer, primary_key=True)
     returned = db.Column(db.Boolean, nullable=False)
     created = db.Column(db.DateTime, default=korea_datetime)
     return_date = db.Column(db.DateTime)
     duration = db.Column(db.DateTime)
-    book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     def to_dict(self):
         result = {
@@ -39,17 +40,20 @@ class Rental(db.Model):
 
 class Review(db.Model):
     """책 후기 Model"""
-    __tablename__ = 'review'
+
+    __tablename__ = "review"
 
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer, nullable=False)
     created = db.Column(db.DateTime, default=korea_datetime)
-    book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user_name = db.Column(db.String(30), default="", nullable=True)
 
-    def __init__(self, user_id: int, book_id: int, name: str, content: str = "", score: int = 0):
+    def __init__(
+        self, user_id: int, book_id: int, name: str, content: str = "", score: int = 0
+    ):
         """리뷰 Model 객체 초기화
 
         Args:
@@ -63,7 +67,7 @@ class Review(db.Model):
         self.book_id = book_id
         self.user_id = user_id
         self.user_name = name
-        
+
     def to_dict(self):
         result = {
             "content": self.content,
@@ -77,6 +81,7 @@ class Review(db.Model):
 
 class Book(db.Model):
     """책 Model"""
+
     __tablename__ = "books"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -92,8 +97,8 @@ class Book(db.Model):
     image_url = db.Column(db.String(150), nullable=False)
     stock = db.Column(db.Integer, default=10)
 
-    rental = db.relationship(Rental, backref='book')
-    review = db.relationship(Review, backref='book')
+    rental = db.relationship(Rental, backref="book")
+    review = db.relationship(Review, backref="book")
 
     def to_dict(self):
         result = {
@@ -116,7 +121,8 @@ class Book(db.Model):
 
 class User(UserMixin, db.Model):
     """사용자 Model"""
-    __tablename__ = 'users'
+
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
@@ -125,10 +131,12 @@ class User(UserMixin, db.Model):
     created = db.Column(db.DateTime, default=korea_datetime)
     last_login = db.Column(db.DateTime, default=korea_datetime)
 
-    rental = db.relationship(Rental, backref='user')
-    review = db.relationship(Review, backref='user')
+    rental = db.relationship(Rental, backref="user")
+    review = db.relationship(Review, backref="user")
 
-    def __init__(self, name: str = "", email: str = "", password_hash: str = "") -> None:
+    def __init__(
+        self, name: str = "", email: str = "", password_hash: str = ""
+    ) -> None:
         """사용자 Model 객체 초기화
 
         Args:
@@ -141,7 +149,6 @@ class User(UserMixin, db.Model):
         self.password_hash = password_hash
 
     def to_dict(self):
-        a = self
 
         result = {
             "name": self.name,

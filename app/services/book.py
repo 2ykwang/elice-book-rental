@@ -6,12 +6,10 @@ from app import db
 
 
 class BookService(object):
-
     @staticmethod
     def get_books(current_page: int, book_per_page: int) -> Pagination:
         query = Book.query
-        pagination = query.paginate(
-            current_page, book_per_page, error_out=False)
+        pagination = query.paginate(current_page, book_per_page, error_out=False)
         return pagination
 
     @staticmethod
@@ -57,8 +55,12 @@ class BookService(object):
 
         # NOTE: with-entities 라는 아주 좋은 함수가 있었다.
 
-        query_result = dict(Book.query
-                            .with_entities(func.avg(Review.score).label("score"), func.count().label("count"))
-                            .filter(Review.book_id == book_id).first())
+        query_result = dict(
+            Book.query.with_entities(
+                func.avg(Review.score).label("score"), func.count().label("count")
+            )
+            .filter(Review.book_id == book_id)
+            .first()
+        )
 
-        return query_result if query_result['count'] > 0 else None
+        return query_result if query_result["count"] > 0 else None

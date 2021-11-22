@@ -9,7 +9,7 @@ def forbidden(e):
 
 # 로그인 필요할 경우
 @main.app_errorhandler(401)
-def page_not_found(e):
+def unauthorized(e):
     flash("로그인이 필요합니다.")
     return redirect(url_for('auth.login'))
 
@@ -20,7 +20,7 @@ def page_not_found(e):
 
 
 @main.app_errorhandler(405)
-def page_not_found(e):
+def method_not_allowed(e):
     return render_template('errors/405.html'), 405
 
 

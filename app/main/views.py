@@ -18,15 +18,17 @@ def index():
     pagination = BookService.get_books(page, book_per_page)
     books = pagination.items
 
-    return render_template("book_list.html",
-                           book_list=books,
-                           pagination=pagination,
-                           enumerate=enumerate, 
-                           get_score=BookService.get_score)
+    return render_template(
+        "book_list.html",
+        book_list=books,
+        pagination=pagination,
+        enumerate=enumerate,
+        get_score=BookService.get_score,
+    )
 
 
 @main.route("/book/<int:id>")
-@is_exists_book(redirect_endpoint='main.index')
+@is_exists_book(redirect_endpoint="main.index")
 def book_detail(id):
 
     book = BookService.get_book_by_id(id)
@@ -34,10 +36,9 @@ def book_detail(id):
 
     reviews = ReviewService.get_reviews_by_bookid(book.id)
 
-    return render_template("book_detail.html",
-                           book=book, 
-                           get_score=BookService.get_score,
-                           reviews=reviews)
+    return render_template(
+        "book_detail.html", book=book, get_score=BookService.get_score, reviews=reviews
+    )
 
 
 @main.route("/book/<int:id>/rent", methods=["POST"])
@@ -48,20 +49,21 @@ def book_rent(id):
     # 재고가 없을 경우
     if book.stock < 1:
         flash("현재 빌릴 수 있는 재고가 없습니다. 죄송합니다.")
-        return redirect(url_for('main.book_detail', id=id))
+        return redirect(url_for("main.book_detail", id=id))
 
     if RentalService.is_user_rented_book(current_user.id, book.id):
         flash("이미 이 책을 빌리셨습니다.")
-        return redirect(url_for('main.book_detail', id=id))
+        return redirect(url_for("main.book_detail", id=id))
 
     rental = RentalService.add_rental(
-        current_user.id, book.id, current_app.config["BOOK_DURATION"])
+        current_user.id, book.id, current_app.config["BOOK_DURATION"]
+    )
 
     BookService.decrease_stock(book.id)
 
     flash(f"{book.book_name} 책을 빌리셨습니다.")
     flash(f"반드시 {format_datetime(rental.duration)} 까지 반납해주세요!")
-    return redirect(url_for('main.book_detail', id=id))
+    return redirect(url_for("main.book_detail", id=id))
 
 
 @main.route("/book/<int:id>/return", methods=["POST"])
@@ -69,15 +71,15 @@ def book_rent(id):
 @is_exists_book()
 def book_return(id):
     # 이 사람이 빌린 책인지 검증
-    if RentalService.is_user_rented_book(current_user.id, id) == False:
+    if not RentalService.is_user_rented_book(current_user.id, id):
         flash("잘못된 요청 입니다.")
-        return redirect(url_for('mybook.rented_books'))
+        return redirect(url_for("mybook.rented_books"))
 
     RentalService.return_book(current_user.id, id)
     BookService.increase_stock(id)
 
-    flash(f"책을 반납해주셔서 감사합니다.")
-    return redirect(url_for('mybook.rented_books'))
+    flash("책을 반납해주셔서 감사합니다.")
+    return redirect(url_for("mybook.rented_books"))
 
 
 @main.route("/book/<int:id>/review", methods=["POST"])
@@ -90,23 +92,24 @@ def book_review(id):
     # 점수가 숫자형식인지
     if not type(score) == int:
         flash("점수를 매겨주세요..!")
-        return redirect(url_for('main.book_detail', id=id))
+        return redirect(url_for("main.book_detail", id=id))
 
     # 1~5 범위인지
     if score > 5 or score < 1:
         flash("점수를 매겨주세요..!")
-        return redirect(url_for('main.book_detail', id=id))
+        return redirect(url_for("main.book_detail", id=id))
 
     # 빌렸던 적이 있는 책인지 ( 빌린사람만 리뷰를 쓸 수 있게 )
-    if not RentalService.is_user_rented_book(current_user.id, id, include_returned=True):
+    if not RentalService.is_user_rented_book(
+        current_user.id, id, include_returned=True
+    ):
         flash("책을 먼저 읽고 후기를 남겨주세요!")
-        return redirect(url_for('main.book_detail', id=id))
+        return redirect(url_for("main.book_detail", id=id))
 
         # 이미 작성한 리뷰가 있는지
     if ReviewService.get_written_review(current_user.id, id):
         flash("이미 작성한 리뷰가 있어요..!")
-        return redirect(url_for('main.book_detail', id=id))
-  
-    
+        return redirect(url_for("main.book_detail", id=id))
+
     ReviewService.add_review(current_user.id, id, current_user.name, content, score)
-    return redirect(url_for('main.book_detail', id=id))
+    return redirect(url_for("main.book_detail", id=id))

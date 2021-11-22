@@ -13,10 +13,12 @@ from app.services import RentalService
 def rented_books():
     pagination = _paginate_rented_books()
 
-    return render_template("mybook/rented_book_list.html",
-                           items=pagination.items,
-                           pagination=pagination,
-                           enumerate=enumerate)
+    return render_template(
+        "mybook/rented_book_list.html",
+        items=pagination.items,
+        pagination=pagination,
+        enumerate=enumerate,
+    )
 
 
 @mybook.route("/history")
@@ -24,10 +26,12 @@ def rented_books():
 def rented_books_history():
     pagination = _paginate_rented_books(True)
 
-    return render_template("mybook/rented_book_history.html",
-                           items=pagination.items,
-                           pagination=pagination,
-                           enumerate=enumerate)
+    return render_template(
+        "mybook/rented_book_history.html",
+        items=pagination.items,
+        pagination=pagination,
+        enumerate=enumerate,
+    )
 
 
 def _paginate_rented_books(include_returned: bool = False) -> Pagination:
@@ -35,5 +39,6 @@ def _paginate_rented_books(include_returned: bool = False) -> Pagination:
     book_per_page = current_app.config["BOOK_PER_PAGE"]
 
     pagination = RentalService.get_rental_and_books_paginate(
-        current_user.id, page, book_per_page, include_returned)
+        current_user.id, page, book_per_page, include_returned
+    )
     return pagination

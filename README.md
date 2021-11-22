@@ -21,6 +21,7 @@
 
 <br>
 
+
 ## 사용 스택
 
 |       범주       |            기술             |
@@ -59,9 +60,10 @@ root
 ├── docs
 │   └── resource
 │       └── book_image_resource
+├── migrations # db migrations
+│   └── versions
 ├── tests # -> 테스트 코드
 └── utility
-
 ```
 
 <br>
@@ -84,16 +86,10 @@ $ pipenv update
 
 # venv 사용
 $ python3 -m venv .venv
-
-# Linux
-$ source .venv/bin/activate
-
-# Windows
-$ .\.venv\Scripts\activate.bat # Command Prompt
-$ .\.venv\Scripts\activate.ps1 # Power Shell
+$ pip install -r requirements.txt
 
 # 실행
-$ pip install -r requirements.txt
+$ export FLASK_APP=run.py
 $ flask run
 
 ```
@@ -111,6 +107,7 @@ DATABASE_URL='DB 경로'
 
 # 설정 ( development | testing | production )
 FLASK_CONFIG='development'
+FLASK_APP='run.py'
 ```
 
 <br>
@@ -128,12 +125,12 @@ SECRET_KEY=yoursecretkey
 web gunicorn -c ./gunicorn.config.py
 ```
 
-<br>
-
 ## 문서
 
 [프로젝트 구현 상황](/docs/todo.md)
 
-[내가 한 것들](/docs/review.md)
+[일일 회고](/docs/review.md)
 
 [참고한 문서](/docs/reference.md)
+
+<br>
