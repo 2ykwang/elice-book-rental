@@ -34,8 +34,22 @@ def book_detail(id):
 
     reviews = ReviewService.get_reviews_by_bookid(book.id)
 
+    # 이 사람이 이 책을 현재 대여중인 상태인지 체크 빌렸다면 반납하기 버튼 렌더링
+    is_rented = RentalService.is_user_rented_book(
+        current_user.id, book.id, include_returned=False
+    )
+    # 리뷰 작성 가능한 상태인지 체크 이미 리뷰를 작성했거나 또는 빌리지 않았다면 review form 비활성화
+    can_write_review = RentalService.is_user_rented_book(
+        current_user.id, book.id, include_returned=True
+    ) and not ReviewService.get_written_review(current_user.id, book.id)
+
     return render_template(
-        "book_detail.html", book=book, get_score=BookService.get_score, reviews=reviews
+        "book_detail.html",
+        book=book,
+        is_rented=is_rented,
+        can_write_review=can_write_review,
+        get_score=BookService.get_score,
+        reviews=reviews,
     )
 
 
@@ -61,7 +75,7 @@ def book_rent(id):
 
     flash(f"{book.book_name} 책을 빌리셨습니다.")
     flash(f"반드시 {format_datetime(rental.duration)} 까지 반납해주세요!")
-    return redirect(url_for("main.book_detail", id=id))
+    return redirect(url_for("mybook.rented_books", id=id))
 
 
 @main.route("/book/<int:id>/return", methods=["POST"])
@@ -77,7 +91,8 @@ def book_return(id):
     BookService.increase_stock(id)
 
     flash("책을 반납해주셔서 감사합니다.")
-    return redirect(url_for("mybook.rented_books"))
+    flash("책에대한 소감을 작성해주세요!")
+    return redirect(url_for("main.book_detail", id=id))
 
 
 @main.route("/book/<int:id>/review", methods=["POST"])
@@ -106,7 +121,7 @@ def book_review(id):
 
         # 이미 작성한 리뷰가 있는지
     if ReviewService.get_written_review(current_user.id, id):
-        flash("이미 작성한 리뷰가 있어요..!")
+        flash("이미 리뷰를 작성했어요..")
         return redirect(url_for("main.book_detail", id=id))
 
     ReviewService.add_review(current_user.id, id, current_user.name, content, score)
