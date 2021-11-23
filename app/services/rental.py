@@ -14,13 +14,13 @@ class RentalService(object):
         user_id: int, include_returned: bool = False
     ) -> Union[List[Tuple[Book, Rental]], None]:
         joined_query = db.session.query(Book, Rental).join(
-            Rental, Rental.book_id.is_(Book.id)
+            Rental, Rental.book_id == Book.id
         )
 
         filter = (
             (Rental.user_id == user_id)
             if include_returned
-            else (Rental.user_id.is_(user_id)) & (Rental.returned.is_(False))
+            else ((Rental.user_id == user_id) & (Rental.returned.is_(False)))
         )
 
         books = joined_query.filter(filter).order_by(desc(Rental.created)).all()
@@ -41,7 +41,7 @@ class RentalService(object):
         filter = (
             (Rental.user_id == user_id)
             if include_returned
-            else (Rental.user_id.is_(user_id)) & (Rental.returned.is_(False))
+            else (Rental.user_id == user_id & (Rental.returned.is_(False)))
         )
 
         pagination = (
@@ -74,9 +74,11 @@ class RentalService(object):
         rental = (
             db.session.query(Rental)
             .filter(
-                (Rental.user_id.is_(user_id))
-                & (Rental.book_id.is_(book_id))
-                & (Rental.returned.is_(False))
+                (
+                    (Rental.user_id == user_id)
+                    & (Rental.book_id == book_id)
+                    & (Rental.returned.is_(False))
+                )
             )
             .first()
         )
@@ -96,9 +98,11 @@ class RentalService(object):
         filter = (
             (Rental.user_id == user_id) & (Rental.book_id == book_id)
             if include_returned
-            else (Rental.user_id.is_(user_id))
-            & (Rental.book_id.is_(book_id))
-            & (Rental.returned.is_(False))
+            else (
+                (Rental.user_id == user_id)
+                & (Rental.book_id == book_id)
+                & (Rental.returned.is_(False))
+            )
         )
 
         rental = db.session.query(Rental.id).filter(filter).first()
