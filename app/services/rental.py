@@ -41,7 +41,7 @@ class RentalService(object):
         filter = (
             (Rental.user_id == user_id)
             if include_returned
-            else (Rental.user_id == user_id & (Rental.returned.is_(False)))
+            else ((Rental.user_id == user_id) & (Rental.returned.is_(False)))
         )
 
         pagination = (
