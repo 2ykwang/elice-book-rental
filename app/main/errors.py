@@ -8,6 +8,12 @@ def forbidden(e):
     return render_template("errors/404.html"), 404
 
 
+@main.app_errorhandler(400)
+def unauthorized(e):
+    flash("잘 못 된 요 청")
+    return redirect(url_for("auth.login"))
+
+
 # 로그인 필요할 경우
 @main.app_errorhandler(401)
 def unauthorized(e):

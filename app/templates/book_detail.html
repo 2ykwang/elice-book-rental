@@ -40,7 +40,11 @@
   
               <div class="row"> 
                 <div class ="col-6">
+                   {%if not is_rented%}
                    <button type="button" class="btn btn-md btn-main" data-bs-toggle="modal" data-bs-target="#rentalModal">대여하기</button> 
+                   {% else %}
+                   <button type="button" class="btn btn-md btn-danger" data-bs-toggle="modal" data-bs-target="#returnModal">반납하기</button> 
+                   {% endif %}
                 </div>
                 <div class ="col-6 text-end"> 
                    <small class="text-muted">{{book.stock}} 권 남음</small> 
@@ -51,7 +55,7 @@
       </div>
    </div>
 </div>
-
+{% if not is_rented %}
 <div class="modal fade" id="rentalModal" tabindex="-1" aria-labelledby="rentalModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
    <div class="modal-content ">
@@ -74,11 +78,37 @@
    </div>
   </div>
 </div>
+{% else %}
 
+<div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+   <div class="modal-content ">
+    <div class="modal-header">
+      <h5 class="modal-title" id="returnModalLabel">책을 반납하시겠습니까?</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      "<strong>{{book.book_name}}</strong>" 
+      <p>책을 반납하시겠습니까? 한번 더 확인해주세요.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요.</button> 
+
+      <form method="POST" action="{{url_for("main.book_return", id=book.id)}}">  
+        <input type="hidden" name="book_id" id="book_id" value="{{book.id}}">
+        <button type="submit" class="btn btn-primary">반납 할게요</button>
+      </form>
+    </div>
+   </div>
+  </div>
+</div>
+{% endif %}
 <div class="container p-2 mb-5">
    <div class="card comment-card mt-3 ">
       <!-- write comment box 시작 -->
+      {% if can_write_review %}
       <form action="{{url_for('main.book_review', id=book.id)}}" method="POST" class ="card comment-box p-3" >
+        <input type="hidden" name="act" id="act" value ="write">
         <div class="row"> 
            <div class="col col-12">
               <div class="form-floating comment-box-form p-2">
@@ -105,6 +135,7 @@
             </div> 
         </div>
       </form> 
+      {% endif %}
       <!-- write comment box 끝 -->
 
       <!-- comments -->
@@ -114,10 +145,12 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="user d-flex flex-row align-items-center">
                     <span>
-                    <small class="font-weight-bold text-main comment-card-name">{{review.user_name}}</small> 
+                    <small class="font-weight-bold text-main comment-card-name">{{review.user_name}}</small>  
                     </span> 
                 </div> 
-                <small class ="text-muted">{{review.created | created_datetime}}</small>
+                <div class="col-auto me-1">
+                <small class ="text-muted">{{review.created | created_datetime}}</small> 
+                </div> 
             </div>
             <div class="d-flex justify-content-between align-items-center mt-2 mb-1">
             <span><small class="font-weight-bold">{{review.content}}</small></span>
@@ -127,6 +160,15 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="d-flex justify-content-between align-items-center mt-2 mb-1">
+            {% if review.user_id == current_user.id %}
+                <div class="col"></div>
+                <div class="align-items-center col-auto me-1 "> 
+                  <button type="button" class="btn btn-sm btn-danger" onClick="deleteBookClickHandler(event)" data-book-id="{{book.id}}" data-review-id="{{review.id}}">X</button>
+                </div>
+            {% endif %}
+            </div> 
         </div>
         {% endfor %}
       </div>

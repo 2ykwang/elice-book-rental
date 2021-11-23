@@ -51,6 +51,26 @@ class TestReview(unittest.TestCase):
         ANSWER = count_query.filter(Review.book_id == book2.id).scalar()
         self.assertEqual(EXPECTED, ANSWER)
 
+    def test_delete_review(self) -> None:
+
+        # make dummy data
+        user1 = make_fake_user()
+        book1 = make_fake_book()
+
+        db.session.add_all([user1, book1])
+        db.session.commit()
+
+        review = ReviewService.add_review(user1.id, book1.id, user1.name, "좋아요!", 10)
+
+        # 존재하는지 체크
+        self.assertIsNotNone(ReviewService.get_written_review(user1.id, review.id))
+
+        # 삭제
+        self.assertEqual(ReviewService.delete_review(review.id), True)
+
+        # 삭제하고 존재하는지 체크
+        self.assertIsNone(ReviewService.get_written_review(user1.id, review.id))
+
     def test_check_written_review(self) -> None:
         # make dummy data
         user1 = make_fake_user()
