@@ -12,9 +12,22 @@ const returnBookClickHandler = (e) => {
   const bookId = target.getAttribute("data-book-id");
   const postParams = {
     book_id: bookId,
+    act: "write"
   };
   sendPost(`/book/${bookId}/return`, postParams);
-  console.log(bookId);
+};
+
+
+const deleteBookClickHandler = (e) => {
+  const target = e.target;
+  const bookId = target.getAttribute("data-book-id");
+  const reviewId = target.getAttribute("data-review-id");
+  console.log(bookId)
+  const postParams = {
+    review_id: reviewId, 
+    act: "delete",
+  };
+  sendPost(`/book/${bookId}/review`, postParams);
 };
 
 const sendPost = (action, params) => {
