@@ -9,7 +9,7 @@ def forbidden(e):
 
 
 @main.app_errorhandler(400)
-def unauthorized(e):
+def bad_request(e):
     flash("잘 못 된 요 청")
     return redirect(url_for("auth.login"))
 
