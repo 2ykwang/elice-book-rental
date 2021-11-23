@@ -19,6 +19,28 @@ class ReviewService(object):
         return review
 
     @staticmethod
+    def delete_review(review_id: int) -> bool:
+
+        review = db.session.query(Review).filter(Review.id == review_id).first()
+
+        if review:
+            db.session.delete(review)
+            db.session.commit()
+            return True
+
+        return False
+
+    @staticmethod
+    def is_own_review(user_id: int, review_id: int) -> bool:
+
+        review = (
+            db.session.query(Review.id)
+            .filter((Review.user_id == user_id) & (Review.id == review_id))
+            .first()
+        )
+        return review is not None
+
+    @staticmethod
     def get_written_review(user_id: int, book_id: int) -> Union[Review, None]:
 
         review = (
@@ -26,7 +48,6 @@ class ReviewService(object):
             .filter((Review.user_id == user_id) & (Review.book_id == book_id))
             .first()
         )
-
         return review
 
     @staticmethod
@@ -41,7 +62,7 @@ class ReviewService(object):
         return review
 
     @staticmethod
-    def get_reviews_by_bookid(book_id: int, order_by_date=True) -> List[Review]:
+    def get_reviews_by_bookid(book_id: int) -> List[Review]:
 
         reviews = (
             db.session.query(Review)
