@@ -35,19 +35,23 @@ def book_detail(id):
 
     reviews = ReviewService.get_reviews_by_bookid(book.id)
 
-    # 이 사람이 이 책을 현재 대여중인 상태인지 체크 빌렸다면 반납하기 버튼 렌더링
-    is_rented = RentalService.is_user_rented_book(
-        current_user.id, book.id, include_returned=False
-    )
-
-    # 리뷰 작성 가능한 상태인지 체크 - 이미 리뷰를 작성했거나 또는 빌리지 않았다면 review form 비활성화
-    can_write_review = (
-        RentalService.is_user_rented_book(
-            current_user.id, book.id, include_returned=True
+    is_rented = None
+    can_write_review = False
+    
+    if current_user.is_authenticated:
+        # 이 사람이 이 책을 현재 대여중인 상태인지 체크 빌렸다면 반납하기 버튼 렌더링
+        is_rented = RentalService.is_user_rented_book(
+            current_user.id, book.id, include_returned=False
         )
-        and ReviewService.get_written_review(current_user.id, book.id) is None
-    )
-    print(can_write_review)
+
+        # 리뷰 작성 가능한 상태인지 체크 - 이미 리뷰를 작성했거나 또는 빌리지 않았다면 review form 비활성화
+        can_write_review = (
+            RentalService.is_user_rented_book(
+                current_user.id, book.id, include_returned=True
+            )
+            and ReviewService.get_written_review(current_user.id, book.id) is None
+        ) 
+        
     return render_template(
         "book_detail.html",
         book=book,
