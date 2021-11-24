@@ -37,6 +37,10 @@ def create_app(config_name):
 
     app.register_blueprint(mybook_bp, url_prefix="/mybook")
 
+    from .api import api as api_bp
+
+    app.register_blueprint(api_bp, url_prefix="/api/v1")
+
     return app
 
 
