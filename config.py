@@ -7,6 +7,9 @@ class Config:
     # 공통 부분
     SECRET_KEY = os.environ.get("SECRET_KEY") or "secret key"
 
+    # host:port -> api 이미지 리소스 absolute url을 제공하기 위해.
+    SERVER_NAME = "127.0.0.1:5000"
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     BOOK_PER_PAGE = 8
