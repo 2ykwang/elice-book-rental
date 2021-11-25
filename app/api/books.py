@@ -20,14 +20,16 @@ class Books(Resource):
 
         pagination = BookService.get_books(page, book_per_page)
         book_items = list(map(lambda x: x.to_dict(), pagination.items))
-        return {
-            "count": len(book_items),
-            "current_page": pagination.page,
-            "last_page": pagination.pages,
-            "has_next": pagination.has_next,
-            "has_prev": pagination.has_prev,
-            "books": book_items,
-        }
+        return Response.make_response(
+            {
+                "count": len(book_items),
+                "current_page": pagination.page,
+                "last_page": pagination.pages,
+                "has_next": pagination.has_next,
+                "has_prev": pagination.has_prev,
+                "books": book_items,
+            }
+        )
 
 
 # book detail
@@ -37,5 +39,5 @@ class BookDetail(Resource):
 
         book = BookService.get_book_by_id(book_id)
         if not book:
-            return Response.make_error(ERROR_NOT_FOUND_RESOURCE, status=404)
-        return book.to_dict()
+            return Response.make_error(ERROR_NOT_FOUND_RESOURCE)
+        return Response.make_response(book.to_dict())
