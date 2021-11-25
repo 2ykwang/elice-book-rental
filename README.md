@@ -12,6 +12,7 @@
 - [엘리스 3기 도서관 대출 서비스 프로젝트](#엘리스-3기-도서관-대출-서비스-프로젝트)
   - [TOC](#toc)
   - [사용 스택](#사용-스택)
+    - [사용한 라이브러리](#사용한-라이브러리)
   - [디렉터리 구조](#디렉터리-구조)
   - [설치](#설치)
     - [환경변수](#환경변수)
@@ -32,6 +33,29 @@
 |  데이터 베이스   |    MySQL, SQLite (Test)     |
 |    프론트엔드    |     JavaScript, jQuery      |
 |      백엔드      | Flask, Gunicorn, SQLAlchemy |
+
+### 사용한 라이브러리
+
+`production`
+
+- flask
+- flask-wtf
+- flask-sqlalchemy
+- sqlalchemy
+- flask-login
+- flask-migrate
+- flask-restx
+- gunicorn
+- python-dotenv
+- email-validator
+- pymysql
+
+`development`
+
+- requests
+- flake8
+- black
+- isort
 
 <br>
 
