@@ -34,6 +34,7 @@ class RentalService(object):
         book_per_page: int,
         include_returned: bool = False,
     ) -> Pagination:
+
         joined_query = db.session.query(Rental, Book).join(
             Rental, Rental.book_id == Book.id
         )
@@ -51,9 +52,9 @@ class RentalService(object):
         )
 
         # TODO: 이 부분이 좀 신경쓰임 테이블 병합하고 새로운 데이터를 어떻게 처리해야하는지 알아보자.
-        pagination.items = [
-            dict_combine(x.Book.to_dict(), x.Rental.to_dict()) for x in pagination.items
-        ]
+        # pagination.items = [
+        #     dict_combine(x.Book.to_dict(), x.Rental.to_dict()) for x in pagination.items
+        # ]
 
         return pagination
 

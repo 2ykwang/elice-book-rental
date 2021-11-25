@@ -15,27 +15,27 @@
         {% for item in items %}
           <div class="col">
             <div class="card book-card shadow-sm h-100">
-              <a href="{{url_for('main.book_detail', id=item.book_id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= item.image_url) }}" focusable="false"> </img></a>
+              <a href="{{url_for('main.book_detail', id=item.Rental.book_id)}}"><img class="book-image card-img-top" width="100%" height="320" src="{{ url_for('static', filename= item.Book.image_url) }}" focusable="false"> </img></a>
 
               <div class="card-body">
-                <h5 class="card-title book-title" alt ="{{ item.book_name }}"><a class="card-link" href="{{url_for('main.book_detail', id=item.book_id)}}">{{ item.book_name }}</a></h5>
+                <h5 class="card-title book-title" alt ="{{ item.Book.book_name }}"><a class="card-link" href="{{url_for('main.book_detail', id=item.Rental.book_id)}}">{{ item.Book.book_name }}</a></h5>
 
                   <div class="row align-items-center">
                     <div class="col col-5"> 
-                      <h6 class="card-subtitle mb-2 text-muted book-author">{{item.author}}</h6>
+                      <h6 class="card-subtitle mb-2 text-muted book-author">{{item.Book.author}}</h6>
                     </div>  
                     <div class="col me-auto text-end"> 
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.created | format_datetime}}</h6> 
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">빌린 날짜: {{item.Rental.created | format_datetime}}</h6> 
                     </div>   
                 </div>
                   <div class="row align-items-center">
                     <div class="col me-auto text-end"> 
-                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납 기한: {{item.duration | format_datetime}}</h6>
+                    <h6 style="font-size:0.8em;" class="card-subtitle mb-2 text-muted">반납 기한: {{item.Rental.duration | format_datetime}}</h6>
                     </div>
                 </div>
   
                   <div class="row align-items-center"> 
-                    <button type="button" onclick="returnBookClickHandler(event)" data-book-id="{{item.book_id}}" class="btn btn-md btn-main">반납하기</button>
+                    <button type="button" onclick="returnBookClickHandler(event)" data-book-id="{{item.Rental.book_id}}" class="btn btn-md btn-main">반납하기</button>
                 </div>
               </div>
             </div>

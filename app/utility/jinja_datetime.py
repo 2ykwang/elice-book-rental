@@ -6,6 +6,8 @@ from . import korea_datetime
 
 
 def format_datetime(value: datetime, format=None):
+    if value is None:
+        return None
     if format is None:
         format = "%Y.%m.%d"
         formatted = (
