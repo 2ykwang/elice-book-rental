@@ -17,6 +17,7 @@ email-validator = "*"
 pymysql = "*"
 update = "*"
 pytz = "*" 
+flask-cors = "*"
 
 [dev-packages]
 requests = "*"

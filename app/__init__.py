@@ -1,11 +1,13 @@
 from config import get_config
 from flask import Flask, abort, url_for
+from flask_cors import CORS
 from flask_login import LoginManager
 from flask_restx import Api
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+cors = CORS()
 
 
 def create_app(config_name):
@@ -17,6 +19,7 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
+    cors.init_app(app)
 
     # jinja date format
     from .utility import created_datetime, format_datetime
