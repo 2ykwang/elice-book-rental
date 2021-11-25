@@ -20,8 +20,8 @@ class Rental(db.Model):
     def to_dict(self):
         result = {
             "returned": self.returned,
-            "created": self.created,
-            "return_date": self.return_date,
+            "created": format_datetime(self.created, "%Y.%m.%d %H:%M"),
+            "return_date": format_datetime(self.return_date, "%Y.%m.%d %H:%M"),
             "duration": self.duration,
             "book_id": self.book_id,
             "user_id": self.user_id,
@@ -63,9 +63,9 @@ class Review(db.Model):
         result = {
             "content": self.content,
             "score": self.score,
-            "created": self.created,
             "book_id": self.book_id,
-            "user_id": self.user_id,
+            "user_name": self.user_name,
+            "created": format_datetime(self.created, "%Y.%m.%d %H:%M"),
         }
         return result
 
@@ -145,8 +145,8 @@ class User(UserMixin, db.Model):
         result = {
             "name": self.name,
             "email": self.email,
-            "created": self.created,
-            "last_login": self.last_login,
+            "created": format_datetime(self.created, "%Y.%m.%d %H:%M"),
+            "last_login": format_datetime(self.last_login, "%Y.%m.%d %H:%M"),
             "rental_count": len(self.rental),
             "review_count": len(self.review),
         }
