@@ -71,3 +71,7 @@
 
 - 책 리뷰 삭제 기능 추가
 - 로그인을 하지 않고 책 상세페이지에 접근 시 발생하는 오류 수정
+
+## 2021-11-25
+
+- flask_restx 를 이용해 REST API를 지원한다 [API Swagger](https://elice-book-rental.herokuapp.com/api)

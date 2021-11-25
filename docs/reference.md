@@ -34,3 +34,5 @@
   [https://pjh3749.tistory.com/273](https://pjh3749.tistory.com/273)
 - Swagger documentation¶
   [https://flask-restx.readthedocs.io/en/latest/swagger.html](https://flask-restx.readthedocs.io/en/latest/swagger.html)
+- Flask 어플리케이션 테스트하기
+  [https://flask-docs-kr.readthedocs.io/ko/latest/testing.html](https://flask-docs-kr.readthedocs.io/ko/latest/testing.html)
