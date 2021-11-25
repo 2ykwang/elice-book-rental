@@ -1,4 +1,4 @@
-from app.services import BookService
+from app.services import BookService, ReviewService
 from flask import current_app, request
 from flask_restx import Namespace, Resource
 
@@ -9,10 +9,14 @@ book_api = Namespace("books")
 
 
 # book list
-@book_api.route("/", defaults={"page": 1})
 @book_api.route("/<int:page>")
+@book_api.doc(
+    description="책 리스트를 반환합니다.",
+    params={"page": "탐색할 페이지"},
+    responses={200: "데이터 반환에 성공한 경우"},
+)
 class Books(Resource):
-    def get(self, page):
+    def get(self, page=1):
         # sort
         book_per_page = request.args.get(
             "per_page", default=current_app.config["BOOK_PER_PAGE"], type=int
@@ -34,10 +38,21 @@ class Books(Resource):
 
 # book detail
 @book_api.route("/details/<int:book_id>")
+@book_api.doc(
+    description="책 상세 정보를 반환합니다.",
+    params={"book_id": "책에대한 상세정보를 얻을 book_id"},
+    responses={200: "데이터 반환에 성공한 경우", 204: "책을 찾을 수 없는 경우"},
+)
 class BookDetail(Resource):
     def get(self, book_id):
-
         book = BookService.get_book_by_id(book_id)
         if not book:
             return Response.make_error(ERROR_NOT_FOUND_RESOURCE)
-        return Response.make_response(book.to_dict())
+
+        reviews = ReviewService.get_reviews_by_bookid(book.id)
+
+        response = {
+            "book": book.to_dict(),
+            "reviews": list(map(lambda x: x.to_dict(), reviews)),
+        }
+        return Response.make_response(response)
