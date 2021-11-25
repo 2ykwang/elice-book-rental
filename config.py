@@ -30,6 +30,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    SERVER_NAME = "localhost:5000"
     SQLALCHEMY_DATABASE_URI = (
         os.environ.get("TEST_DATABASE_URL")
         or f"sqlite:///{os.path.join(basedir, 'data-test.sqlite')}"
