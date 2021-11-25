@@ -26,3 +26,13 @@
   [https://flask-docs-kr.readthedocs.io/ko/latest/patterns/viewdecorators.html](https://flask-docs-kr.readthedocs.io/ko/latest/patterns/viewdecorators.html)
 - flask 템플릿
   [https://flask-docs-kr.readthedocs.io/ko/latest/templating.html](https://flask-docs-kr.readthedocs.io/ko/latest/templating.html)
+- RESTful web API 디자인
+  [https://docs.microsoft.com/ko-kr/azure/architecture/best-practices/api-design#organize-the-api-around-resources](https://docs.microsoft.com/ko-kr/azure/architecture/best-practices/api-design#organize-the-api-around-resources)
+- Flask-restx
+  [https://flask-restx.readthedocs.io/en/latest/quickstart.html](https://flask-restx.readthedocs.io/en/latest/quickstart.html)
+- REST API 에러 핸들링 best practice - 에러를 어떻게 내려 주어야 할까
+  [https://pjh3749.tistory.com/273](https://pjh3749.tistory.com/273)
+- Swagger documentation¶
+  [https://flask-restx.readthedocs.io/en/latest/swagger.html](https://flask-restx.readthedocs.io/en/latest/swagger.html)
+- Flask 어플리케이션 테스트하기
+  [https://flask-docs-kr.readthedocs.io/ko/latest/testing.html](https://flask-docs-kr.readthedocs.io/ko/latest/testing.html)

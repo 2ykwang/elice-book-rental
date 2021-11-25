@@ -36,4 +36,4 @@ def created_datetime(value: datetime):
     if sub < timedelta(days=7):
         return f"{sub.days} 일 전"
     else:
-        return format_datetime(value, "%Y.%m.%d %h:%M")
+        return format_datetime(value, "%Y.%m.%d %H:%M")

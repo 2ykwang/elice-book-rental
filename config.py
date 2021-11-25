@@ -7,6 +7,9 @@ class Config:
     # 공통 부분
     SECRET_KEY = os.environ.get("SECRET_KEY") or "secret key"
 
+    # host:port -> api 이미지 리소스 absolute url을 제공하기 위해.
+    SERVER_NAME = os.environ.get("SERVER_NAME") or ""
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = True
     BOOK_PER_PAGE = 8
@@ -27,6 +30,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    SERVER_NAME = "localhost:5000"
     SQLALCHEMY_DATABASE_URI = (
         os.environ.get("TEST_DATABASE_URL")
         or f"sqlite:///{os.path.join(basedir, 'data-test.sqlite')}"

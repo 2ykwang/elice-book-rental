@@ -1,12 +1,7 @@
-from datetime import timedelta
-from enum import unique
-from typing import Dict, Tuple, Union
-
 from app import db, login_manager
 from app.utility import format_datetime, korea_datetime
+from flask import url_for
 from flask_login import UserMixin
-from flask_sqlalchemy import BaseQuery
-from werkzeug.security import check_password_hash, generate_password_hash
 
 
 class Rental(db.Model):
@@ -25,8 +20,8 @@ class Rental(db.Model):
     def to_dict(self):
         result = {
             "returned": self.returned,
-            "created": self.created,
-            "return_date": self.return_date,
+            "created": format_datetime(self.created, "%Y.%m.%d %H:%M"),
+            "return_date": format_datetime(self.return_date, "%Y.%m.%d %H:%M"),
             "duration": self.duration,
             "book_id": self.book_id,
             "user_id": self.user_id,
@@ -68,9 +63,9 @@ class Review(db.Model):
         result = {
             "content": self.content,
             "score": self.score,
-            "created": self.created,
             "book_id": self.book_id,
-            "user_id": self.user_id,
+            "user_name": self.user_name,
+            "created": format_datetime(self.created, "%Y.%m.%d %H:%M"),
         }
         return result
 
@@ -98,16 +93,17 @@ class Book(db.Model):
 
     def to_dict(self):
         result = {
+            "book_id": self.id,
             "book_name": self.book_name,
             "publisher": self.publisher,
             "author": self.author,
-            "publication_date": self.publication_date,
+            "publication_date": format_datetime(self.publication_date),
             "pages": self.pages,
             "isbn": self.isbn,
             "description": self.description,
             "viewer": self.viewer,
             "link": self.link,
-            "image_url": self.image_url,
+            "image_url": url_for("static", filename=self.image_url, _external=True),
             "stock": self.stock,
             "rental_count": len(self.rental),
             "review_count": len(self.review),
@@ -149,8 +145,8 @@ class User(UserMixin, db.Model):
         result = {
             "name": self.name,
             "email": self.email,
-            "created": self.created,
-            "last_login": self.last_login,
+            "created": format_datetime(self.created, "%Y.%m.%d %H:%M"),
+            "last_login": format_datetime(self.last_login, "%Y.%m.%d %H:%M"),
             "rental_count": len(self.rental),
             "review_count": len(self.review),
         }

@@ -1,7 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*$py.class
+*$py.class 
+node_modules/
 
 # local db 파일
 *.sqlite
