@@ -26,3 +26,7 @@
   [https://flask-docs-kr.readthedocs.io/ko/latest/patterns/viewdecorators.html](https://flask-docs-kr.readthedocs.io/ko/latest/patterns/viewdecorators.html)
 - flask 템플릿
   [https://flask-docs-kr.readthedocs.io/ko/latest/templating.html](https://flask-docs-kr.readthedocs.io/ko/latest/templating.html)
+- RESTful web API 디자인
+  [https://docs.microsoft.com/ko-kr/azure/architecture/best-practices/api-design#organize-the-api-around-resources](https://docs.microsoft.com/ko-kr/azure/architecture/best-practices/api-design#organize-the-api-around-resources)
+- Flask-restx
+  [https://flask-restx.readthedocs.io/en/latest/quickstart.html](https://flask-restx.readthedocs.io/en/latest/quickstart.html)
