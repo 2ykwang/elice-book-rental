@@ -9,11 +9,13 @@ class Response:
         error: Dict[str, Any] = None,
         result: Dict[str, Any] = None,
     ):
-        return {"status": status_code, "error": error, "result": result}
+        return {"status": status_code, "error": error, "result": result}, status_code
 
     @staticmethod
     def make_response(result: Dict[str, Any]):
-        return Response._make_response(200, error={"error": "", "message": ""}, result=result)
+        return Response._make_response(
+            200, error={"error": "", "message": ""}, result=result
+        )
 
     @staticmethod
     def make_error(
@@ -24,24 +26,20 @@ class Response:
         if error not in errors:
             # raise ValueError(f"Unknown Error {error}")
 
-            return (
-                Response._make_response(
-                    400 if status_code is None else status_code,
-                    error={
-                        "error": error,
-                        "message": "" if message is None else message,
-                    },
-                ),
-                status_code,
-            )
-
-        return (
-            Response._make_response(
-                errors[error]["status_code"] if status_code is None else status_code,
+            return Response._make_response(
+                status_code=400 if status_code is None else status_code,
                 error={
                     "error": error,
-                    "message": errors[error]["message"] if message is None else message,
+                    "message": "" if message is None else message,
                 },
-            ),
-            status_code,
+            )
+
+        return Response._make_response(
+            status_code=errors[error]["status_code"]
+            if status_code is None
+            else status_code,
+            error={
+                "error": error,
+                "message": errors[error]["message"] if message is None else message,
+            },
         )
