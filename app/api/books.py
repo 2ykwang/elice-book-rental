@@ -7,6 +7,14 @@ from .response import Response
 
 book_api = Namespace("books", description="책에 대한 데이터를 얻기 위한 API")
 
+parser = book_api.parser()
+parser.add_argument(
+    "per_page",
+    type=int,
+    help="페이지당 반환할 책 데이터 갯수를 설정합니다.",
+    location="args",
+)
+
 
 # book list
 @book_api.route("/<int:page>")
@@ -16,6 +24,7 @@ book_api = Namespace("books", description="책에 대한 데이터를 얻기 위
     responses={200: "데이터 반환에 성공한 경우"},
 )
 class Books(Resource):
+    @book_api.expect(parser)
     def get(self, page=1):
         # sort
         book_per_page = request.args.get(
@@ -36,6 +45,16 @@ class Books(Resource):
         )
 
 
+parser = book_api.parser()
+parser.add_argument(
+    "include_reviews",
+    type=int,
+    default=1,
+    help="리뷰 반환 여부를 설정합니다. ( 0 or 1 )",
+    location="args",
+)
+
+
 # book detail
 @book_api.route("/details/<int:book_id>")
 @book_api.doc(
@@ -44,15 +63,20 @@ class Books(Resource):
     responses={200: "데이터 반환에 성공한 경우", 204: "책을 찾을 수 없는 경우"},
 )
 class BookDetail(Resource):
+    @book_api.expect(parser)
     def get(self, book_id):
         book = BookService.get_book_by_id(book_id)
         if not book:
             return Response.make_error(ERROR_NOT_FOUND_RESOURCE)
 
+        include_reviews = request.args.get("include_reviews", default=1, type=int)
+
         reviews = ReviewService.get_reviews_by_bookid(book.id)
 
         response = {
             "book": book.to_dict(),
-            "reviews": list(map(lambda x: x.to_dict(), reviews)),
         }
+        if include_reviews == 1:
+            response["reviews"] = list(map(lambda x: x.to_dict(), reviews))
+
         return Response.make_response(response)
