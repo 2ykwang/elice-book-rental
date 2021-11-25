@@ -8,7 +8,7 @@ ERROR_VALUE_ALREADY_EXISTS = "err-003"
 errors = {
     ERROR_NOT_FOUND_RESOURCE: {
         "message": "요청한 리소스를 찾을 수 없습니다.",
-        "status_code": HTTPStatus.NO_CONTENT,
+        "status_code": HTTPStatus.BAD_REQUEST,
     },
     ERROR_BAD_REQUEST: {
         "message": "잘못된 요청 입니다.",

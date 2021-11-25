@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from typing import Any, Dict, Tuple
 
 from .errors import errors
@@ -5,11 +6,17 @@ from .errors import errors
 
 class Response:
     def _make_response(
-        status_code: int = 200,
+        status_code: HTTPStatus = HTTPStatus.OK,
         error: Dict[str, Any] = None,
         result: Dict[str, Any] = None,
     ):
-        return {"status": status_code, "error": error, "result": result}, status_code
+        response = {
+            "status": status_code,
+            "error": error,
+            "result": result,
+        }, status_code
+        print(response)
+        return response
 
     @staticmethod
     def make_response(result: Dict[str, Any]):
