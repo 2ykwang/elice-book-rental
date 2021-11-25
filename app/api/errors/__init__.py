@@ -1,10 +1,23 @@
+from http import HTTPStatus
+
 ERROR_NOT_FOUND_RESOURCE = "err-001"
 ERROR_BAD_REQUEST = "err-002"
+ERROR_VALUE_ALREADY_EXISTS = "err-003"
 
 
 errors = {
-    ERROR_NOT_FOUND_RESOURCE: {"message": "요청한 리소스를 찾을 수 없습니다.", "status_code": 204},
-    ERROR_BAD_REQUEST: {"message": "잘못된 요청 입니다.", "status_code": 400},
+    ERROR_NOT_FOUND_RESOURCE: {
+        "message": "요청한 리소스를 찾을 수 없습니다.",
+        "status_code": HTTPStatus.NO_CONTENT[0],
+    },
+    ERROR_BAD_REQUEST: {
+        "message": "잘못된 요청 입니다.",
+        "status_code": HTTPStatus.BAD_REQUEST[0],
+    },
+    ERROR_VALUE_ALREADY_EXISTS: {
+        "message": "이미 존재하는 리소스/값 입니다.",
+        "status_code": HTTPStatus.CONFLICT[0],
+    },
 }
 
 """

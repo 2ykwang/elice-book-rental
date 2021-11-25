@@ -5,7 +5,7 @@ from flask_restx import Namespace, Resource
 from .errors import ERROR_NOT_FOUND_RESOURCE
 from .response import Response
 
-book_api = Namespace("books")
+book_api = Namespace("books", description="책에 대한 데이터를 얻기 위한 API")
 
 
 # book list
