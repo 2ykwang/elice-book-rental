@@ -32,3 +32,5 @@
   [https://flask-restx.readthedocs.io/en/latest/quickstart.html](https://flask-restx.readthedocs.io/en/latest/quickstart.html)
 - REST API 에러 핸들링 best practice - 에러를 어떻게 내려 주어야 할까
   [https://pjh3749.tistory.com/273](https://pjh3749.tistory.com/273)
+- Swagger documentation¶
+  [https://flask-restx.readthedocs.io/en/latest/swagger.html](https://flask-restx.readthedocs.io/en/latest/swagger.html)
