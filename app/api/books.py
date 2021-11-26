@@ -17,8 +17,8 @@ parser.add_argument(
 parser.add_argument(
     "sort",
     type=str,
-    choices=["popularity", "review"],
-    help="정렬 기준을 설정합니다. popularity(인기순) review(리뷰많은순)",
+    choices=["popularity", "review", "visit"],
+    help="정렬 기준을 설정합니다. popularity(인기순) review(리뷰많은순) visit(많이찾은순)",
     location="args",
 )
 
