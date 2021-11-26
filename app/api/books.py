@@ -55,6 +55,60 @@ class Books(Resource):
 
 parser = book_api.parser()
 parser.add_argument(
+    "q",
+    type=str,
+    help="검색어",
+    location="args",
+)
+parser.add_argument(
+    "per_page",
+    type=int,
+    help="페이지당 반환할 책 데이터 갯수를 설정합니다.",
+    location="args",
+)
+parser.add_argument(
+    "sort",
+    type=str,
+    choices=["popularity", "review", "visit"],
+    help="정렬 기준을 설정합니다. popularity(인기순) review(리뷰많은순) visit(많이찾은순)",
+    location="args",
+)
+
+
+# book list
+@book_api.route("/search")
+@book_api.doc(
+    description="책 리스트를 반환합니다.",
+    params={"page": "탐색할 페이지"},
+    responses={200: "데이터 반환에 성공한 경우"},
+)
+class BookSearch(Resource):
+    @book_api.expect(parser)
+    def get(self, page=1):
+        # sort
+        keyword = request.args.get("q", default="", type=str)
+
+        book_per_page = request.args.get(
+            "per_page", default=current_app.config["BOOK_PER_PAGE"], type=int
+        )
+        sort = request.args.get("sort", default="popularity", type=str)
+
+        pagination = BookService.search_query(keyword, page, book_per_page, sort)
+        book_items = list(map(lambda x: x.to_dict(), pagination.items))
+        return Response.make_response(
+            {
+                "count": len(book_items),
+                "current_page": pagination.page,
+                "last_page": pagination.pages,
+                "has_next": pagination.has_next,
+                "has_prev": pagination.has_prev,
+                "books": book_items,
+            }
+        )
+
+
+parser = book_api.parser()
+parser.add_argument(
     "include_reviews",
     type=int,
     choices=[0, 1],
