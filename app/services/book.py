@@ -27,14 +27,14 @@ class BookService(object):
             query = (
                 db.session.query(Book)
                 .outerjoin(Review, Review.book_id == Book.id)
-                .group_by(Book.book_name)
+                .group_by(Book.book_name, Book.id)
                 .order_by(desc(func.avg(Review.score)), desc(func.count(Book.review)))
             )
         elif sort == BOOK_SORT_REVIEW:
             query = (
                 db.session.query(Book)
                 .outerjoin(Review, Review.book_id == Book.id)
-                .group_by(Book.book_name)
+                .group_by(Book.book_name, Book.id)
                 .order_by(desc(func.count(Book.review)))
             )
         elif sort == BOOK_SORT_VISIT:
