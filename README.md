@@ -6,6 +6,8 @@
 
 [![heroku-img](https://img.shields.io/badge/-HEROKU-430098?logo=Heroku&style=for-the-badge)](https://elice-book-rental.herokuapp.com)
 
+[![azure-img](https://img.shields.io/badge/-Azure-0078D4?logo=Microsoft-Azure&style=for-the-badge)](http://elice-kdt-3rd-vm-083.koreacentral.cloudapp.azure.com/)
+
 REST API 문서
 
 [![mdn-img](https://img.shields.io/badge/-REST_API_DOCS-000000?logo=MDN-Web-Docs&style=for-the-badge)](https://elice-book-rental.herokuapp.com/api)
@@ -27,37 +29,31 @@ REST API 문서
 
 ## 개발 스택
 
-|       범주       |            기술             |
-| :--------------: | :-------------------------: |
-|       배포       |           Heroku            |
-|       개발       |  Python, Flask, SQLAlchemy  |
-| 의존성 관리 도구 |           Pipenv            |
-|  데이터 베이스   |    MySQL, SQLite (Test)     |
-|    프론트엔드    | JavaScript, bootstrap, HTML |
-|      백엔드      | Flask, Gunicorn, SQLAlchemy |
+| 범주             |               기술                |
+| :--------------- | :-------------------------------: |
+| 배포 환경        |  Heroku, Ubuntu, Docker, Jenkins  |
+| 개발             |           Python, Flask           |
+| 의존성 관리 도구 |              Pipenv               |
+| 데이터 베이스    |     MySQL, SQLite, SQLAlchemy     |
+| 프론트엔드       |       JavaScript, bootstrap       |
+| 백엔드           | Nginx, Gunicorn, Flask, Flask Cli |
 
 ### 사용한 라이브러리
 
-`production`
+| production       | development |
+| :--------------- | :---------- |
+| flask            | requests    |
+| flask-wtf        | flake8      |
+| flask-sqlalchemy | black       |
+| sqlalchemy       | isort       |
+| flask-login      |             |
+| flask-migrate    |             |
+| flask-restx      |             |
+| gunicorn         |             |
+| python-dotenv    |             |
+| email-validator  |             |
+| pymysql          |             |
 
-- flask
-- flask-wtf
-- flask-sqlalchemy
-- sqlalchemy
-- flask-login
-- flask-migrate
-- flask-restx
-- gunicorn
-- python-dotenv
-- email-validator
-- pymysql
-
-`development`
-
-- requests
-- flake8
-- black
-- isort
 
 ## 디렉터리 구조
 
@@ -83,8 +79,8 @@ root
 │   │   ├── macro # -> 자주 사용하는 jinja2 템플릿 함수
 │   │   └── mybook # -> 대여기록, 대여한책
 │   └── utility # -> helper 함수
-├── docs # -> 프로젝트 개발에 관한 문서 
-├── migrations # db migrations 
+├── docs # -> 프로젝트 개발에 관한 문서
+├── migrations # db migrations
 ├── tests # -> 테스트 코드
 └── utility
 ```
@@ -121,18 +117,17 @@ $ python -m unittest
 
 ```ini
 # Secret Key
-SECRET_KEY='시크릿 키'
+SECRET_KEY='secret key here'
 
 # ( 개발 DB  (data-dev.sqlite) | 테스트 DB (data-test.sqlite) | 배포 DB (data.sqlite) )
 # ex:) sqlite://path , mysql+pymysql://
-DEV_DATABASE_URL='DB 경로'
-TEST_DATABASE_URL='DB 경로'
-DATABASE_URL='DB 경로'
-SERVER_NAME='SERVER HOST' # ex:) naver.com, github.com
+DEV_DATABASE_URL='db path here'
+TEST_DATABASE_URL='db path here'
+DATABASE_URL='db path here'
 
-# 설정 ( development | testing | production )
-FLASK_CONFIG='development'
+FLASK_CONFIG='development' # 설정 ( development | testing | production )
 FLASK_APP='run.py'
+SERVER_NAME='server host here'
 ```
 
 ## 배포
@@ -141,17 +136,17 @@ FLASK_APP='run.py'
 
 ```zsh
 FLASK_CONFIG=production
-DATABASE_URL=mysql+pymysql://id:pw@host:3306/database
+DATABASE_URL=mysql+pymysql://id:pw@yourdatabasehosthere:3306/database
 SECRET_KEY=yoursecretkey
-SERVER_NAME='your server domain' # ex:) naver.com, github.com
-
-# dyno formation
-web gunicorn -c ./gunicorn.config.py
+SERVER_NAME='your heroku domain' # ex:) naver.com, github.com
 ```
+
 
 ## 문서
 
-[프로젝트 구현 상황](/docs/todo.md)
+[프로젝트 문서](/docs/)
+
+[구현 상황](/docs/todo.md)
 
 [일일 회고](/docs/review.md)
 
