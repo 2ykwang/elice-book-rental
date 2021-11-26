@@ -2,6 +2,7 @@ from app import db, login_manager
 from app.utility import format_datetime, korea_datetime
 from flask import url_for
 from flask_login import UserMixin
+from sqlalchemy.util.langhelpers import hybridmethod, hybridproperty
 
 
 class Rental(db.Model):
@@ -84,7 +85,7 @@ class Book(db.Model):
     isbn = db.Column(db.BigInteger, nullable=False)
     description = db.Column(db.Text, nullable=False)
     viewer = db.Column(db.Integer, default=0)  # 조회수
-    link = db.Column(db.String(128), nullable=False)
+    link = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.String(150), nullable=False)
     stock = db.Column(db.Integer, default=10)
 
