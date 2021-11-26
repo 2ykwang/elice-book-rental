@@ -14,6 +14,13 @@ parser.add_argument(
     help="페이지당 반환할 책 데이터 갯수를 설정합니다.",
     location="args",
 )
+parser.add_argument(
+    "sort",
+    type=str,
+    choices=["popularity", "review"],
+    help="정렬 기준을 설정합니다. popularity(인기순) review(리뷰많은순)",
+    location="args",
+)
 
 
 # book list
@@ -30,8 +37,9 @@ class Books(Resource):
         book_per_page = request.args.get(
             "per_page", default=current_app.config["BOOK_PER_PAGE"], type=int
         )
+        sort = request.args.get("sort", default="popularity", type=str)
 
-        pagination = BookService.get_books(page, book_per_page)
+        pagination = BookService.get_books(page, book_per_page, sort)
         book_items = list(map(lambda x: x.to_dict(), pagination.items))
         return Response.make_response(
             {
@@ -49,8 +57,9 @@ parser = book_api.parser()
 parser.add_argument(
     "include_reviews",
     type=int,
+    choices=[0, 1],
     default=1,
-    help="리뷰 반환 여부를 설정합니다. ( 0 or 1 )",
+    help="리뷰 표시 여부를 설정합니다. ( 0 or 1 )",
     location="args",
 )
 

@@ -6,8 +6,9 @@
             </a>
             <ul class="nav me-auto justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 link-dark">레이서 도서관</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">인기 도서</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">신간</a></li>
+                <li><a href={{url_for('main.index', page=1, sort="popularity")}} class="nav-link px-2 link-dark">인기 도서</a></li>
+                <li><a href={{url_for('main.index', page=1, sort="review")}} class="nav-link px-2 link-dark">리뷰 많은 도서</a></li>
+                <li><a href={{url_for('main.index', page=1, sort="visit")}} class="nav-link px-2 link-dark">많이 찾는 도서</a></li>
             </ul>
 
             <ul class="nav d-none d-md-block">

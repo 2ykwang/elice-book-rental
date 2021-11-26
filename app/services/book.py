@@ -3,13 +3,43 @@ from typing import Dict, Union
 from app import db
 from app.models import Book, Review
 from flask_sqlalchemy import Pagination
-from sqlalchemy.sql import func
+from sqlalchemy.sql import desc, func
+from sqlalchemy.sql.expression import asc
+
+BOOK_SORT_POPULARITY = "popularity"
+BOOK_SORT_REVIEW = "review"
+BOOK_SORT_VISIT = "visit"
+DEFAULT_SORT = BOOK_SORT_POPULARITY
+
+sort_available = [BOOK_SORT_POPULARITY, BOOK_SORT_REVIEW, BOOK_SORT_VISIT]
 
 
 class BookService(object):
     @staticmethod
-    def get_books(current_page: int, book_per_page: int) -> Pagination:
-        query = Book.query
+    def get_books(
+        current_page: int, book_per_page: int, sort: str = BOOK_SORT_POPULARITY
+    ) -> Pagination:
+
+        if sort not in sort_available:
+            sort = DEFAULT_SORT
+
+        if sort == BOOK_SORT_POPULARITY:
+            query = (
+                db.session.query(Book)
+                .outerjoin(Review, Review.book_id == Book.id)
+                .group_by(Book.book_name)
+                .order_by(desc(func.avg(Review.score)), desc(func.count(Book.review)))
+            )
+        elif sort == BOOK_SORT_REVIEW:
+            query = (
+                db.session.query(Book)
+                .outerjoin(Review, Review.book_id == Book.id)
+                .group_by(Book.book_name)
+                .order_by(desc(func.count(Book.review)))
+            )
+        elif sort == BOOK_SORT_VISIT:
+            query = db.session.query(Book).order_by(desc(Book.viewer))
+
         pagination = query.paginate(current_page, book_per_page, error_out=False)
         return pagination
 

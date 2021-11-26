@@ -1,6 +1,6 @@
 from app.decorator import is_exists_book
 from app.models import Rental, User
-from app.services import BookService, RentalService, ReviewService
+from app.services import DEFAULT_SORT, BookService, RentalService, ReviewService
 from app.utility import format_datetime
 from flask import abort, current_app, flash, redirect, render_template, request
 from flask.helpers import url_for
@@ -12,15 +12,18 @@ from . import main
 @main.route("/")
 def index():
     page = request.args.get("page", default=1, type=int)
+    sort = request.args.get("sort", default=DEFAULT_SORT, type=str)
+
     book_per_page = current_app.config["BOOK_PER_PAGE"]
 
-    pagination = BookService.get_books(page, book_per_page)
+    pagination = BookService.get_books(page, book_per_page, sort)
     books = pagination.items
 
     return render_template(
         "book_list.html",
         book_list=books,
         pagination=pagination,
+        sort=sort,
         enumerate=enumerate,
         get_score=BookService.get_score,
     )
@@ -37,7 +40,7 @@ def book_detail(id):
 
     is_rented = None
     can_write_review = False
-    
+
     if current_user.is_authenticated:
         # 이 사람이 이 책을 현재 대여중인 상태인지 체크 빌렸다면 반납하기 버튼 렌더링
         is_rented = RentalService.is_user_rented_book(
@@ -50,8 +53,8 @@ def book_detail(id):
                 current_user.id, book.id, include_returned=True
             )
             and ReviewService.get_written_review(current_user.id, book.id) is None
-        ) 
-        
+        )
+
     return render_template(
         "book_detail.html",
         book=book,
