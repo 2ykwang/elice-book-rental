@@ -20,6 +20,28 @@ class BookService(object):
         current_page: int, book_per_page: int, sort: str = BOOK_SORT_POPULARITY
     ) -> Pagination:
 
+        query = BookService._book_sort(sort)
+
+        pagination = query.paginate(current_page, book_per_page, error_out=False)
+        return pagination
+
+    @staticmethod
+    def search_query(
+        keyword: str,
+        current_page: int,
+        book_per_page: int,
+        sort: str = BOOK_SORT_POPULARITY,
+    ):
+        query = BookService._book_sort(sort).filter(
+            Book.book_name.like(f"%{keyword}%") | Book.description.like(f"%{keyword}%")
+        )
+
+        pagination = query.paginate(current_page, book_per_page, error_out=False)
+        return pagination
+
+    # NOTE: 중복되는 코드 메소드 추출
+    @staticmethod
+    def _book_sort(sort):
         if sort not in sort_available:
             sort = DEFAULT_SORT
 
@@ -40,8 +62,7 @@ class BookService(object):
         elif sort == BOOK_SORT_VISIT:
             query = db.session.query(Book).order_by(desc(Book.viewer))
 
-        pagination = query.paginate(current_page, book_per_page, error_out=False)
-        return pagination
+        return query
 
     @staticmethod
     def get_book_by_id(book_id: int) -> Union[Book, None]:
