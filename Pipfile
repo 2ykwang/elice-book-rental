@@ -18,6 +18,7 @@ pymysql = "*"
 update = "*"
 pytz = "*" 
 flask-cors = "*"
+cryptography = "*"
 
 [dev-packages]
 requests = "*"
