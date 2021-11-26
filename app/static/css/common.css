@@ -240,3 +240,10 @@ img {
     height:200 px;
     color:var(--default-typo-black);
 } 
+
+
+.search-form { 
+    max-width: 600px;  
+    margin: auto;
+    width: 100%;
+}
