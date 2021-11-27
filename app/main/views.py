@@ -14,6 +14,7 @@ def index():
     query = request.args.get("q", default="", type=str)
     page = request.args.get("page", default=1, type=int)
     sort = request.args.get("sort", default=DEFAULT_SORT, type=str)
+    style = request.args.get("style", default="list", type=str)
 
     book_per_page = current_app.config["BOOK_PER_PAGE"]
 
@@ -25,11 +26,12 @@ def index():
     books = pagination.items
 
     return render_template(
-        "book_list.html",
+        "book_list_line.html" if style == "list" else "book_list.html",
         query=query,
+        style=style,
+        sort=sort,
         book_list=books,
         pagination=pagination,
-        sort=sort,
         enumerate=enumerate,
         get_score=BookService.get_score,
     )
