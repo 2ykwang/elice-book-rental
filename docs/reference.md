@@ -36,3 +36,6 @@
   [https://flask-restx.readthedocs.io/en/latest/swagger.html](https://flask-restx.readthedocs.io/en/latest/swagger.html)
 - Flask 어플리케이션 테스트하기
   [https://flask-docs-kr.readthedocs.io/ko/latest/testing.html](https://flask-docs-kr.readthedocs.io/ko/latest/testing.html)
+- 도커 컨테이너 끼리 연결하기
+  [https://wiserloner.tistory.com/317](https://wiserloner.tistory.com/317)
+  
