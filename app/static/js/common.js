@@ -6,16 +6,28 @@ window.onload = () => {
     myModal.show();
   }
 };
+// const test = () => {
+//   axios
+//     .get(
+//       "/api/books/search?q=%ED%8C%8C%EC%9D%B4%EC%8D%AC&per_page=3&sort=popularity&page=1"
+//     )
+//     .then((response) => {
+//       const users = response.data;
+//       console.log(`GET data`, users);
+//     })
+//     .catch((error) => console.error(error));
+// };
 
 const node = document.getElementById("search_input");
 if (node) {
+  const searchParams = new URLSearchParams(window.location.search);
+  node.value = searchParams.get("q");
   node.addEventListener("keyup", function (e) {
-    console.log(node.value)
+    console.log(node.value);
     if (e.key === "Enter") {
-      const searchParams = new URLSearchParams(window.location.search); 
-      // 1페이지 부터 보라고. page 매개변수를 지워준다. 
-      searchParams.delete("page")
-      searchParams.set("q", node.value)
+      // 1페이지 부터 보라고. page 매개변수를 지워준다.
+      searchParams.delete("page");
+      searchParams.set("q", node.value);
       window.location.replace(`/?${searchParams.toString()}`);
     }
   });

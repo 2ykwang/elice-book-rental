@@ -13,9 +13,9 @@
       <div class="form-floating search-form w-100">
           <input id ="search_input" type="search" class="form-control" placeholder="검색어">
           <label for="floatingInput">검색어</label> 
-      </div> 
+      </div>
   </div>
-
+ 
   <div class="row row-cols-1 row-cols-xs-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-3">
   {% for book in book_list %}
     <div class="col">
@@ -55,10 +55,12 @@
         </div>
       </div>
     </div> 
-  {% endfor %} 
+  {% endfor %}
   </div>
-  
-  {% if pagination %}
+  {% if not book_list %}
+    {% include "errors/no_content.html" %}
+  {% endif %}
+  {% if pagination and book_list%}
   <div class="container mt-4 mb-4 ms-n2"> 
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">

@@ -1,18 +1,24 @@
 @import url(//font.elice.io/EliceDigitalBaeum.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
     max-width: 1200px;
 }
 
 :root {
-    --main-color: #564BBE;
+    --main-color: #564bbe;
     --default-typo-white: #fefefe;
     --default-typo-black: #333;
-    --main-bg-color: #F7F9FA;
-    --footer-bg-color: #EBECEE;
+    --main-bg-color: #f7f9fa;
+    --footer-bg-color: #ebecee;
     --point-font: "Elice Digital Baeum", sans-serif;
-    --default-font: 'Noto Sans KR', 'Nanum Gothic', "Apple SD Gothic Neo", sans-serif
+    --default-font: "Noto Sans KR", "Nanum Gothic", "Apple SD Gothic Neo",
+        sans-serif;
 }
 
 /* 전역 */
@@ -23,9 +29,11 @@ body {
     width: 100%;
     height: 100%;
 }
+
 footer {
     background-color: var(--footer-bg-color);
 }
+
 /* 포인트 글씨체 */
 h1,
 h2,
@@ -36,15 +44,14 @@ h6,
 .text-muted,
 .nav {
     font-family: var(--point-font);
-
 }
 
 a {
-    text-decoration: none !important
+    text-decoration: none !important;
 }
 
 a:hover {
-    text-decoration: none !important
+    text-decoration: none !important;
 }
 
 .card-link {
@@ -59,11 +66,11 @@ img {
     color: var(--main-color);
 }
 
-
 /* 북 리스트 */
 .card-link:hover {
     color: var(--main-color);
-} 
+}
+
 .nav>li>a:hover {
     color: var(--main-color);
 }
@@ -93,53 +100,53 @@ img {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width:100%;
-    font-size:1.15em;
+    width: 100%;
+    font-size: 1.15em;
     font-weight: 600;
     height: 30px;
 }
+
 .book-author {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width:100%;
+    width: 100%;
 }
 
 .ratings {
-    margin-right: 10px
+    margin-right: 10px;
 }
 
 .ratings i {
     color: #cecece;
-    font-size: 32px
+    font-size: 32px;
 }
 
 .rating-color {
-    color: #fbc634 !important
+    color: #fbc634 !important;
 }
 
 .rating-color-text {
     color: var(--default-typo-black) !important;
-    font-weight:400;
-    font-size:15px;
+    font-weight: 400;
+    font-size: 15px;
 }
 
 .review-count {
     font-weight: 400;
     margin-bottom: 2px;
-    font-size: 24px !important
+    font-size: 24px !important;
 }
 
 .small-ratings i {
-    color: #cecece
+    color: #cecece;
 }
 
 .review-stat {
     font-weight: 300;
     font-size: 18px;
-    margin-bottom: 2px
+    margin-bottom: 2px;
 }
-
 
 /* 상세 페이지 */
 
@@ -172,7 +179,7 @@ img {
 }
 
 .preview-card {
-    max-width: 1200px;  
+    max-width: 1200px;
     padding: 3em;
     line-height: 1.5em;
 }
@@ -200,50 +207,63 @@ img {
     width: 100%;
     max-width: 500px;
     margin: auto;
-
 }
-.comments {  
+
+.comments {
     margin: auto;
-    width:100%; 
+    width: 100%;
 }
-.comments>.card{
-    border:0;
 
+.comments>.card {
+    border: 0;
 }
-.comment-card-name{
+
+.comment-card-name {
     font-size: 1.1rem;
     font-weight: 600;
-}  
+}
+
 .comment-card {
-    max-width: 1200px;  
+    max-width: 1200px;
     padding: 3em;
     line-height: 1.5em;
 }
 
 .comment-box {
-    max-width: 1200px;  
+    max-width: 1200px;
     background-color: var(--point-font);
     min-height: 130px;
-    width:100%; 
+    width: 100%;
     margin: auto;
-} 
-.comment-box-rating { 
-    min-width:140px;
-    max-width: 200px;  
-    border:0;
-    outline:0;
-} 
-.comment-box-form>input{
+}
+
+.comment-box-rating {
+    min-width: 140px;
+    max-width: 200px;
+    border: 0;
+    outline: 0;
+}
+
+.comment-box-form>input {
     border: 0;
 }
-.comment-box-form>label{
-    height:200 px;
-    color:var(--default-typo-black);
-} 
 
+.comment-box-form>label {
+    height: 200 px;
+    color: var(--default-typo-black);
+}
 
-.search-form { 
-    max-width: 600px;  
+.search-form {
+    max-width: 600px;
     margin: auto;
     width: 100%;
+}
+
+.search-form>input {
+    font-weight: 500;
+}
+
+canvas {
+    background: #333;
+    display: block;
 }
