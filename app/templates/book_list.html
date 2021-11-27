@@ -9,9 +9,9 @@
     <button type="button" class="btn btn-md btn-main">인기순</button> 
     <button type="button" class="btn btn-md btn-main">출판순</button> 
   </div>-->  
-  <div class ="input-group justify-content-center my-2 my-md-3 my-lg-4 my-xl-5">
+  <div class ="input-group justify-content-center mb-3 my-2 my-md-4 mt-xl-4 my-lg-4 my-xl-5">
       <div class="form-floating search-form w-100">
-          <input type="search" class="form-control" placeholder="검색어">
+          <input id ="search_input" type="search" class="form-control" placeholder="검색어">
           <label for="floatingInput">검색어</label> 
       </div> 
   </div>
@@ -63,13 +63,13 @@
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center">
         <li class="pe-2 ps-2 page-item {% if not pagination.has_prev %}disabled{% endif %}">
-          <a class="page-link btn-main" href="{% if pagination.has_prev %}{{ url_for('.index', sort=sort, page=pagination.prev_num) }}{% endif %}">&larr;</a>
+          <a class="page-link btn-main" href="{% if pagination.has_prev %}{{ url_for('.index', q=query, sort=sort, page=pagination.prev_num) }}{% endif %}">&larr;</a>
         </li> 
         {% for i, page in enumerate(pagination.iter_pages()) %} 
-                <li class="page-item {% if i+1 == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', sort=sort, page = i+1) }}">{{i+1}}</a></li>   
+                <li class="page-item {% if i+1 == pagination.page %}active{% endif %}"><a class="page-link btn-main" href="{{ url_for('.index', q=query, sort=sort, page = i+1) }}">{{i+1}}</a></li>   
         {% endfor %}
         <li class="pe-2 ps-2 page-item {% if not pagination.has_next %}disabled{% endif %}">
-          <a class="page-link btn-main" href="{% if pagination.has_next %}{{ url_for('.index', sort=sort, page=pagination.next_num) }}{% endif %}">&rarr;</a>
+          <a class="page-link btn-main" href="{% if pagination.has_next %}{{ url_for('.index', q=query, sort=sort, page=pagination.next_num) }}{% endif %}">&rarr;</a>
         </li>
       </ul>
     </nav>  

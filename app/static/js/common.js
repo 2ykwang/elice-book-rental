@@ -7,24 +7,37 @@ window.onload = () => {
   }
 };
 
+const node = document.getElementById("search_input");
+if (node) {
+  node.addEventListener("keyup", function (e) {
+    console.log(node.value)
+    if (e.key === "Enter") {
+      const searchParams = new URLSearchParams(window.location.search); 
+      // 1페이지 부터 보라고. page 매개변수를 지워준다. 
+      searchParams.delete("page")
+      searchParams.set("q", node.value)
+      window.location.replace(`/?${searchParams.toString()}`);
+    }
+  });
+}
+
 const returnBookClickHandler = (e) => {
   const target = e.target;
   const bookId = target.getAttribute("data-book-id");
   const postParams = {
     book_id: bookId,
-    act: "write"
+    act: "write",
   };
   sendPost(`/book/${bookId}/return`, postParams);
 };
-
 
 const deleteBookClickHandler = (e) => {
   const target = e.target;
   const bookId = target.getAttribute("data-book-id");
   const reviewId = target.getAttribute("data-review-id");
-  console.log(bookId)
+  console.log(bookId);
   const postParams = {
-    review_id: reviewId, 
+    review_id: reviewId,
     act: "delete",
   };
   sendPost(`/book/${bookId}/review`, postParams);

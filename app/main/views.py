@@ -11,16 +11,22 @@ from . import main
 
 @main.route("/")
 def index():
+    query = request.args.get("q", default="", type=str)
     page = request.args.get("page", default=1, type=int)
     sort = request.args.get("sort", default=DEFAULT_SORT, type=str)
 
     book_per_page = current_app.config["BOOK_PER_PAGE"]
 
-    pagination = BookService.get_books(page, book_per_page, sort)
+    if query:
+        pagination = BookService.search_query(query, page, book_per_page, sort)
+    else:
+        pagination = BookService.get_books(page, book_per_page, sort)
+
     books = pagination.items
 
     return render_template(
         "book_list.html",
+        query=query,
         book_list=books,
         pagination=pagination,
         sort=sort,
