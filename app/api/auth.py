@@ -11,7 +11,7 @@ auth_api = Namespace("auth", description="유저 인증 API")
 # 가입
 @auth_api.route("/signup")
 @auth_api.doc(
-    description="엘리스 도서관에 가입합니다.",
+    description="엘리스 도서관에 가입합니다. ( not implemented )",
     responses={
         200: "데이터 반환에 성공한 경우",
         400: "잘못된 요청일 경우",

@@ -19,9 +19,9 @@
     </div>
     {% endif %}
     <div class="col me-auto text-end" role="group">
-      <a href="{{ url_for('.index', q=query, style="grid", sort=sort, page=page) }}" class="btn btn-md btn-main"><i
+      <a href="{{ url_for('.index', q=query, style="grid", sort=sort, page=pagination.page) }}" class="btn btn-md btn-main"><i
           class="fa fa-th" aria-hidden="true"></i></a>
-      <a href="{{ url_for('.index', q=query, style="list", sort=sort, page=page) }}" class="btn btn-md btn-main"><i
+      <a href="{{ url_for('.index', q=query, style="list", sort=sort, page=pagination.page) }}" class="btn btn-md btn-main"><i
           class="fa fa-list " aria-hidden="true"></i></a>
     </div>
   </div>

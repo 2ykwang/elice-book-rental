@@ -19,6 +19,7 @@ update = "*"
 pytz = "*" 
 flask-cors = "*"
 cryptography = "*"
+flask-jwt = "*"
 
 [dev-packages]
 requests = "*"
